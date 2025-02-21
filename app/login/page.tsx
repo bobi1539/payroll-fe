@@ -6,12 +6,16 @@ import InputLabel from "../component/input/input-label";
 import ButtonLoading from "../component/button/button-loading";
 import ButtonIcon from "../component/button/button-icon";
 import { LoginRequest } from "../dto/request/login-request";
+import { apiLogin } from "../api/auth";
+import { useRouter } from "next/navigation";
+import { FE_DASHBOARD } from "../constant/endpoint-fe";
 
 const USERNAME: string = "username";
 const PASSWORD: string = "password";
 
 export default function Login() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const router = useRouter();
 
     const submitLogin = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         try {
@@ -20,7 +24,9 @@ export default function Login() {
 
             const formData = new FormData(e.currentTarget);
             const request = buildLoginRequest(formData);
-            console.log(request);
+            const response = await apiLogin(request);
+            console.log(response)
+            router.push(FE_DASHBOARD);
         } catch (error) {
             console.error(error);
         } finally {
