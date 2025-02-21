@@ -48,7 +48,7 @@ export default function Login() {
                         <form onSubmit={submitLogin} className="flex flex-col gap-4">
                             <InputLabel label="Username" name={USERNAME} type="text" isRequired={true} />
                             <InputLabel label="Password" name={PASSWORD} type="password" placeHolder="••••••••" isRequired={true} />
-                            {isLoading ? <ButtonLoading text="Proses Login..." className="mt-2" /> : <ButtonIcon type="submit" icon="fa-solid fa-right-to-bracket" text="Login" className="mt-2 py-2.5" />}
+                            {isLoading ? <ButtonLoading text="Proses Login..." className="mt-2" /> : <ButtonIcon type="submit" icon="fa-solid fa-right-to-bracket" text="Masuk" className="mt-2 py-2.5" />}
                         </form>
                     </div>
                 </div>
