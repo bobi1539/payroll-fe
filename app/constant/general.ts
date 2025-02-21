@@ -1,0 +1,1 @@
+export const PAYROLL_LOGO: string = "/images/payroll-logo.png";
