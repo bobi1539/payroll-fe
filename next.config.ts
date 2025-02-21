@@ -6,6 +6,16 @@ const nextConfig: NextConfig = {
             bodySizeLimit: "20Mb",
         },
     },
+    images: {
+        remotePatterns: [
+            {
+                protocol: "http",
+                hostname: "localhost",
+                port: "8080",
+                pathname: "/api/files/download/**",
+            },
+        ],
+    },
 };
 
 export default nextConfig;
