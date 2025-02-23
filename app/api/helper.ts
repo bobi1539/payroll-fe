@@ -1,7 +1,10 @@
-"use client"
+"use client";
 
-import { HTTP_CODE_UNAUTHORIZED } from "../constant/general";
+import { COOKIE_JWT_TOKEN, HTTP_CODE_UNAUTHORIZED } from "../constant/general";
+import { SESSION_EXPIRED } from "../constant/message";
+import { getCookie, removeCookieLogin, setCookieLogin } from "../util/cookie";
 import { showErrorDialog } from "../util/sweet-alert";
+import { apiLoginRefreshToken } from "./auth";
 
 export const createHeadersWithoutSession = async (): Promise<Headers> => {
     const headers: Record<string, string> = {
@@ -11,9 +14,10 @@ export const createHeadersWithoutSession = async (): Promise<Headers> => {
 };
 
 export const createHeadersWithSession = async (): Promise<Headers> => {
+    const jwtToken = getCookie(COOKIE_JWT_TOKEN);
     const headersObj: Record<string, string> = {
         "Content-Type": "application/json",
-        Authorization: `Bearer `,
+        Authorization: `Bearer ${jwtToken}`,
     };
     return new Headers(headersObj);
 };
@@ -95,5 +99,12 @@ export const createRequestBody = <T>(body: T): string => {
 };
 
 export const handleTokenExpired = async (): Promise<void> => {
-    console.log("error")
+    try {
+        const loginResponse = await apiLoginRefreshToken();
+        setCookieLogin(loginResponse.jwtToken, loginResponse.refreshToken);
+    } catch (error) {
+        console.error(error);
+        removeCookieLogin();
+        await showErrorDialog(SESSION_EXPIRED);
+    }
 };

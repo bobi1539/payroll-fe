@@ -1,9 +1,10 @@
 "use client";
 
 import { FE_DASHBOARD, FE_LOGIN } from "@/app/constant/endpoint-fe";
-import { COOKIE_JWT_TOKEN, COOKIE_REFRESH_TOKEN, URL_DEFAULT_PROFILE, URL_PAYROLL_LOGO } from "@/app/constant/general";
+import { URL_DEFAULT_PROFILE, URL_PAYROLL_LOGO } from "@/app/constant/general";
+import { SURE_TO_LOGOUT } from "@/app/constant/message";
 import { UserResponse } from "@/app/dto/response/user-response";
-import { removeCookie } from "@/app/util/cookie";
+import { removeCookieLogin } from "@/app/util/cookie";
 import { showConfirmDialog } from "@/app/util/sweet-alert";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuPortal, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import Image from "next/image";
@@ -37,11 +38,10 @@ export default function OfficeTopbar(props: Readonly<OfficeTopbarProps>) {
 
     const handleLogout = async () => {
         setIsDropdownProfileOpen(false);
-        const result = await showConfirmDialog("Yakin akan keluar?");
+        const result = await showConfirmDialog(SURE_TO_LOGOUT);
         if (result.isConfirmed) {
             try {
-                removeCookie(COOKIE_JWT_TOKEN);
-                removeCookie(COOKIE_REFRESH_TOKEN);
+                removeCookieLogin();
             } catch (error) {
                 console.error(error);
             } finally {
