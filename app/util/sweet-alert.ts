@@ -1,9 +1,11 @@
 import Swal, { SweetAlertResult } from "sweetalert2";
+import { capitalize } from "./helper";
 
 export const showConfirmDialog = async (title: string): Promise<SweetAlertResult<null>> => {
     return await Swal.fire({
         title: title,
         icon: "warning",
+        iconColor: "#15803d",
         showCancelButton: true,
         confirmButtonColor: "#15803d",
         cancelButtonColor: "#6b7280",
@@ -11,10 +13,9 @@ export const showConfirmDialog = async (title: string): Promise<SweetAlertResult
     });
 };
 
-export const showSuccessDialog = async (text?: string): Promise<void> => {
+export const showSuccessDialog = async (): Promise<void> => {
     await Swal.fire({
         title: "Sukses",
-        text: text,
         icon: "success",
         confirmButtonColor: "#15803d",
         customClass: {
@@ -25,9 +26,9 @@ export const showSuccessDialog = async (text?: string): Promise<void> => {
 
 export const showErrorDialog = async (text: string): Promise<void> => {
     await Swal.fire({
-        title: "Oops...",
-        text: text,
+        text: capitalize(text),
         icon: "error",
+        iconColor: "#15803d",
         confirmButtonColor: "#15803d",
     });
 };
