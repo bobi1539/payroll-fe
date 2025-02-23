@@ -56,7 +56,7 @@ export default function Login() {
 
     return (
         <section className="bg-gray-200">
-            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen pt:mt-0">
+            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen pt:mt-0">
                 <div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
                     <div className="p-6 md:p-8">
                         <div className="flex justify-center gap-3">
