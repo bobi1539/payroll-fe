@@ -1,15 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputLabel from "../component/input/input-label";
 import ButtonLoading from "../component/button/button-loading";
 import ButtonIcon from "../component/button/button-icon";
 import { LoginRequest } from "../dto/request/login-request";
 import { apiLogin } from "../api/auth";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { FE_DASHBOARD } from "../constant/endpoint-fe";
-import { setCookie } from "../util/cookie";
+import { getCookie, setCookie } from "../util/cookie";
 import { COOKIE_JWT_TOKEN, COOKIE_REFRESH_TOKEN } from "../constant/general";
 
 const USERNAME: string = "username";
@@ -18,6 +18,17 @@ const PASSWORD: string = "password";
 export default function Login() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const router = useRouter();
+
+    useEffect(() => {
+        validateIsLogin();
+    }, []);
+
+    const validateIsLogin = (): void => {
+        const jwtToken = getCookie(COOKIE_JWT_TOKEN);
+        if (jwtToken) {
+            redirect(FE_DASHBOARD);
+        }
+    };
 
     const submitLogin = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         try {

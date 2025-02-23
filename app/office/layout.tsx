@@ -3,8 +3,11 @@
 import { Suspense, useEffect, useState } from "react";
 import LoadingOffice from "./loading";
 import OfficeSidebar from "../component/sidebar/office-sidebar";
-import { useRouter } from "next/navigation";
 import OfficeTopbar from "../component/topbar/office-topbar";
+import { getCookie } from "../util/cookie";
+import { COOKIE_JWT_TOKEN } from "../constant/general";
+import { redirect } from "next/navigation";
+import { FE_LOGIN } from "../constant/endpoint-fe";
 
 interface OfficeLayoutProps {
     children: React.ReactNode;
@@ -12,7 +15,17 @@ interface OfficeLayoutProps {
 
 export default function OfficeLayout(props: Readonly<OfficeLayoutProps>) {
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
-    const router = useRouter();
+
+    useEffect(() => {
+        validateIsLogin();
+    }, []);
+
+    const validateIsLogin = (): void => {
+        const jwtToken = getCookie(COOKIE_JWT_TOKEN);
+        if (!jwtToken) {
+            redirect(FE_LOGIN);
+        }
+    };
 
     const handleSidebarOpen = () => {
         setIsSidebarOpen((prevState) => !prevState);
@@ -22,13 +35,6 @@ export default function OfficeLayout(props: Readonly<OfficeLayoutProps>) {
         setIsSidebarOpen(false);
     };
 
-    useEffect(() => {
-        const validateIsLogin = async () => {
-            console.log("Validate login");
-        };
-
-        validateIsLogin();
-    }, [router]);
     return (
         <div>
             <OfficeTopbar setIsSidebarOpen={handleSidebarOpen} />
