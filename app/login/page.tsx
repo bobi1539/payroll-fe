@@ -9,6 +9,8 @@ import { LoginRequest } from "../dto/request/login-request";
 import { apiLogin } from "../api/auth";
 import { useRouter } from "next/navigation";
 import { FE_DASHBOARD } from "../constant/endpoint-fe";
+import { setCookie } from "../util/cookie";
+import { COOKIE_JWT_TOKEN, COOKIE_REFRESH_TOKEN } from "../constant/general";
 
 const USERNAME: string = "username";
 const PASSWORD: string = "password";
@@ -25,7 +27,8 @@ export default function Login() {
             const formData = new FormData(e.currentTarget);
             const request = buildLoginRequest(formData);
             const response = await apiLogin(request);
-            console.log(response)
+            setCookie(COOKIE_JWT_TOKEN, response.jwtToken);
+            setCookie(COOKIE_REFRESH_TOKEN, response.refreshToken);
             router.push(FE_DASHBOARD);
         } catch (error) {
             console.error(error);
