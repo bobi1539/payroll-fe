@@ -1,3 +1,8 @@
+"use client";
+
+import { redirect } from "next/navigation";
+import { FE_LOGIN } from "./constant/endpoint-fe";
+
 export default function Home() {
-    return <h1>Hello</h1>;
+    redirect(FE_LOGIN);
 }
