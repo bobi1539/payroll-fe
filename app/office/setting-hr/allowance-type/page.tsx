@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { apiAllowanceTypeDelete, apiAllowanceTypeFindAllPagination } from "@/app/api/allowance-type";
 import ButtonIcon from "@/app/component/button/button-icon";
@@ -19,6 +19,8 @@ import { PaginationResponse } from "@/app/dto/response/pagination-response";
 import { getItemNumber } from "@/app/util/helper";
 import { showConfirmDialog, showSuccessDialog } from "@/app/util/sweet-alert";
 import { useCallback, useEffect, useState } from "react";
+import AllowanceTypeCreate from "./create";
+import AllowanceTypeUpdate from "./update";
 
 export default function AllowanceType() {
     const [allowanceTypePages, setAllowanceTypePages] = useState<PaginationResponse<AllowanceTypeResponse>>();
@@ -46,7 +48,6 @@ export default function AllowanceType() {
     const handleEditAllowanceType = (id: number): void => {
         setIsModalUpdateOpen(!isModalUpdateOpen);
         setAllowanceTypeIdUpdate(id);
-        console.log(allowanceTypeIdUpdate);
     };
 
     const handleDeleteAllowanceType = async (id: number): Promise<void> => {
@@ -100,6 +101,8 @@ export default function AllowanceType() {
                     )}
                 </CustomTable>
                 <FooterTable totalItem={allowanceTypePages?.totalItem ?? 0} totalPage={allowanceTypePages?.totalPage ?? 0} handlePageChange={handlePageChange} />
+                {isModalCreateOpen && <AllowanceTypeCreate closeModal={() => setIsModalCreateOpen(false)} fetchApiAllowanceType={fetchApiAllowanceType} />}
+                {isModalUpdateOpen && <AllowanceTypeUpdate id={allowanceTypeIdUpdate} closeModal={() => setIsModalUpdateOpen(false)} fetchApiAllowanceType={fetchApiAllowanceType} />}
             </section>
         </div>
     );
