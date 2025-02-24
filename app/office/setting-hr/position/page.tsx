@@ -21,6 +21,8 @@ import { showConfirmDialog, showSuccessDialog } from "@/app/util/sweet-alert";
 import { useCallback, useEffect, useState } from "react";
 import PositionCreate from "./create";
 import PositionUpdate from "./update";
+import CustomDropdownItem from "@/app/component/dropdown/custom-dropdown-item";
+import { ICON_MONEY, TEXT_GRAY_700, TEXT_SALARY } from "@/app/constant/general";
 
 export default function Position() {
     const [positionPages, setPositionPages] = useState<PaginationResponse<PositionResponse>>();
@@ -43,6 +45,10 @@ export default function Position() {
 
     const handlePageChange = (page: number): void => {
         setCurrentPage(page);
+    };
+
+    const handlePositionBasicSalary = (id: number): void => {
+        console.log(id)
     };
 
     const handleEditPosition = (id: number): void => {
@@ -91,6 +97,7 @@ export default function Position() {
                                 <td scope="row" className="px-2.5 py-2 whitespace-nowrap">
                                     <CustomDropdown>
                                         <>
+                                        <CustomDropdownItem onClick={() => handlePositionBasicSalary(position.id)} className={TEXT_GRAY_700} icon={ICON_MONEY} text={TEXT_SALARY} />
                                             <DropdownEdit onClick={() => handleEditPosition(position.id)} />
                                             <DropdownDelete onClick={() => handleDeletePosition(position.id)} />
                                         </>
