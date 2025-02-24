@@ -20,6 +20,7 @@ import CustomDropdown from "@/app/component/dropdown/custom-dropdown";
 import DropdownEdit from "@/app/component/dropdown/dropdown-edit";
 import DropdownDelete from "@/app/component/dropdown/dropdown-delete";
 import { getItemNumber } from "@/app/util/helper";
+import RoleCreate from "./create";
 
 export default function Role() {
     const [rolePages, setRolePages] = useState<PaginationResponse<RoleResponse>>();
@@ -89,7 +90,7 @@ export default function Role() {
                 <ContentSearch>
                     <InputSearch onChange={(e) => setSearchValue(e.target.value)} />
                     <div className="flex justify-end">
-                        <ButtonIcon onClick={() => setIsModalCreateOpen(!isModalCreateOpen)} type="button" icon="fa-solid fa-plus" text="Add User Role" className="w-full md:w-auto" />
+                        <ButtonIcon onClick={() => setIsModalCreateOpen(!isModalCreateOpen)} type="button" icon="fa-solid fa-plus" text="Tambah Role" className="w-full md:w-auto" />
                     </div>
                 </ContentSearch>
                 <CustomTable heads={headsTable}>
@@ -117,6 +118,7 @@ export default function Role() {
                     )}
                 </CustomTable>
                 <FooterTable totalItem={rolePages?.totalItem ?? 0} totalPage={rolePages?.totalPage ?? 0} handlePageChange={handlePageChange} />
+                {isModalCreateOpen && <RoleCreate closeModal={() => setIsModalCreateOpen(false)} fetchApiRole={fetchApiRole} />}
             </section>
         </div>
     );

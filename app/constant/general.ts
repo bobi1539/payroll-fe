@@ -16,3 +16,5 @@ export const TEXT_EDIT: string = "Edit";
 export const TEXT_DELETE: string = "Delete";
 export const ICON_EDIT: string = "fa-solid fa-pen-to-square";
 export const ICON_DELETE: string = "fa-solid fa-trash-can";
+export const ICON_SAVE: string = "fa-solid fa-floppy-disk";
+export const NAME: string = "name";
