@@ -1,5 +1,6 @@
 "use client";
 
+import ButtonLoadingSave from "@/app/component/button/button-loading-save";
 import ButtonSave from "@/app/component/button/button-save";
 import InputLabel from "@/app/component/input/input-label";
 import Modal from "@/app/component/modal/modal";
@@ -8,6 +9,7 @@ import { RoleResponse } from "@/app/dto/response/role-response";
 import { useEffect, useState } from "react";
 
 interface RoleCreateOrUpdateProps {
+    isLoading: boolean;
     submit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
     closeModal: () => void;
     title: string;
@@ -29,9 +31,7 @@ export default function RoleCreateOrUpdate(props: Readonly<RoleCreateOrUpdatePro
                 <div className="my-4">
                     <InputLabel value={name} onChange={(e) => setName(e.target.value)} label="Nama Role" name={NAME} type="text" placeHolder="Masukkan nama role" isRequired={true} />
                 </div>
-                <div className="flex justify-end">
-                    <ButtonSave />
-                </div>
+                <div className="flex justify-end">{props.isLoading ? <ButtonLoadingSave /> : <ButtonSave />}</div>
             </form>
         </Modal>
     );

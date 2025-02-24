@@ -4,6 +4,7 @@ import { showSuccessDialog } from "@/app/util/sweet-alert";
 import RoleCreateOrUpdate from "./create-or-update";
 import { buildRoleRequest } from "./helper";
 import { apiRoleCreate } from "@/app/api/role";
+import { useState } from "react";
 
 interface RoleCreateProps {
     closeModal: () => void;
@@ -11,8 +12,10 @@ interface RoleCreateProps {
 }
 
 export default function RoleCreate(props: Readonly<RoleCreateProps>) {
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const submitCreateRole = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         try {
+            setIsLoading(true);
             e.preventDefault();
             const formData = new FormData(e.currentTarget);
             const request = buildRoleRequest(formData);
@@ -22,8 +25,10 @@ export default function RoleCreate(props: Readonly<RoleCreateProps>) {
             props.closeModal();
         } catch (error) {
             console.error(error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
-    return <RoleCreateOrUpdate submit={submitCreateRole} closeModal={props.closeModal} title="Tambah User Role" />;
+    return <RoleCreateOrUpdate isLoading={isLoading} submit={submitCreateRole} closeModal={props.closeModal} title="Tambah User Role" />;
 }
