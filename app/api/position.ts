@@ -15,14 +15,16 @@ export const apiPositionFindAllPagination = async (search: Search, pagination: P
 };
 
 export const apiPositionFindAll = async (search: Search): Promise<PositionResponse[]> => {
+    const url = BE_POSITION + "/all";
     const headers = await createHeadersWithSession();
-    const response = await makeGetRequest(buildUrlFindAll(BE_POSITION, search), headers);
+    const response = await makeGetRequest(buildUrlFindAll(url, search), headers);
     return await handleResponse(response);
 };
 
 export const apiPositionFindById = async (id: number): Promise<PositionResponse> => {
+    const url = BE_POSITION + "/id/" + id;
     const headers = await createHeadersWithSession();
-    const response = await makeGetRequest(BE_POSITION + "/id/" + id, headers);
+    const response = await makeGetRequest(url, headers);
     return await handleResponse(response);
 };
 

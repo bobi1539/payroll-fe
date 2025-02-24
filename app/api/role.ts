@@ -15,14 +15,16 @@ export const apiRoleFindAllPagination = async (search: Search, pagination: Pagin
 };
 
 export const apiRoleFindAll = async (search: Search): Promise<RoleResponse[]> => {
+    const url = BE_ROLE + "/all";
     const headers = await createHeadersWithSession();
-    const response = await makeGetRequest(buildUrlFindAll(BE_ROLE, search), headers);
+    const response = await makeGetRequest(buildUrlFindAll(url, search), headers);
     return await handleResponse(response);
 };
 
 export const apiRoleFindById = async (id: number): Promise<RoleResponse> => {
+    const url = BE_ROLE + "/id/" + id;
     const headers = await createHeadersWithSession();
-    const response = await makeGetRequest(BE_ROLE + "/id/" + id, headers);
+    const response = await makeGetRequest(url, headers);
     return await handleResponse(response);
 };
 

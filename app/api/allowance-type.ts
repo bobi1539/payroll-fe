@@ -15,14 +15,16 @@ export const apiAllowanceTypeFindAllPagination = async (search: Search, paginati
 };
 
 export const apiAllowanceTypeFindAll = async (search: Search): Promise<AllowanceTypeResponse[]> => {
+    const url = BE_ALLOWANCE_TYPE + "/all";
     const headers = await createHeadersWithSession();
-    const response = await makeGetRequest(buildUrlFindAll(BE_ALLOWANCE_TYPE, search), headers);
+    const response = await makeGetRequest(buildUrlFindAll(url, search), headers);
     return await handleResponse(response);
 };
 
 export const apiAllowanceTypeFindById = async (id: number): Promise<AllowanceTypeResponse> => {
+    const url = BE_ALLOWANCE_TYPE + "/id/" + id;
     const headers = await createHeadersWithSession();
-    const response = await makeGetRequest(BE_ALLOWANCE_TYPE + "/id/" + id, headers);
+    const response = await makeGetRequest(url, headers);
     return await handleResponse(response);
 };
 

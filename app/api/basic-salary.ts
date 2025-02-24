@@ -9,22 +9,23 @@ import { BasicSalarySearch } from "../dto/search/basic-salary-search";
 import { buildUrlFindAll, createHeadersWithSession, handleResponse, makeDeleteRequest, makeGetRequest, makePostRequest, makePutRequest } from "./helper";
 
 export const apiBasicSalaryFindAllPagination = async (search: BasicSalarySearch, pagination: Pagination): Promise<PaginationResponse<BasicSalaryResponse>> => {
-    const url = buildBasicSalaryUrlFindAll(search, pagination);
+    const url = buildBasicSalaryUrlFindAll(BE_BASIC_SALARY, search, pagination);
     const headers = await createHeadersWithSession();
     const response = await makeGetRequest(url, headers);
     return await handleResponse(response);
 };
 
 export const apiBasicSalaryFindAll = async (search: BasicSalarySearch): Promise<BasicSalaryResponse[]> => {
-    const url = buildBasicSalaryUrlFindAll(search);
+    const url = buildBasicSalaryUrlFindAll(BE_BASIC_SALARY + "/all", search);
     const headers = await createHeadersWithSession();
     const response = await makeGetRequest(url, headers);
     return await handleResponse(response);
 };
 
 export const apiBasicSalaryFindById = async (id: number): Promise<BasicSalaryResponse> => {
+    const url = BE_BASIC_SALARY + "/id/" + id;
     const headers = await createHeadersWithSession();
-    const response = await makeGetRequest(BE_BASIC_SALARY + "/id/" + id, headers);
+    const response = await makeGetRequest(url, headers);
     return await handleResponse(response);
 };
 
@@ -46,9 +47,8 @@ export const apiBasicSalaryDelete = async (id: number): Promise<BasicSalaryRespo
     return await handleResponse(response);
 };
 
-const buildBasicSalaryUrlFindAll = (search: BasicSalarySearch, pagination?: Pagination): string => {
-    const url = buildUrlFindAll(BE_BASIC_SALARY, search, pagination);
-    const newUrl = new URL(url);
+const buildBasicSalaryUrlFindAll = (url: string, search: BasicSalarySearch, pagination?: Pagination): string => {
+    const newUrl = new URL(buildUrlFindAll(url, search, pagination));
     newUrl.searchParams.append("positionId", search.positionId.toString());
     return newUrl.toString();
 };
