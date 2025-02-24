@@ -19,7 +19,7 @@ import FooterTable from "@/app/component/table/footer-table";
 import CustomDropdown from "@/app/component/dropdown/custom-dropdown";
 import DropdownEdit from "@/app/component/dropdown/dropdown-edit";
 import DropdownDelete from "@/app/component/dropdown/dropdown-delete";
-import { getItemNumber, getTotalShowItem } from "@/app/util/helper";
+import { getItemNumber } from "@/app/util/helper";
 
 export default function Role() {
     const [rolePages, setRolePages] = useState<PaginationResponse<RoleResponse>>();
@@ -116,7 +116,7 @@ export default function Role() {
                         ))
                     )}
                 </CustomTable>
-                <FooterTable totalShowItem={getTotalShowItem(rolePages)} totalItem={rolePages?.totalItem ?? 0} totalPage={rolePages?.totalPage ?? 0} handlePageChange={handlePageChange} />
+                <FooterTable totalItem={rolePages?.totalItem ?? 0} totalPage={rolePages?.totalPage ?? 0} handlePageChange={handlePageChange} />
             </section>
         </div>
     );
