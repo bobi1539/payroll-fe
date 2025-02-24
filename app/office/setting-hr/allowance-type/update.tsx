@@ -10,7 +10,7 @@ import { showSuccessDialog } from "@/app/util/sweet-alert";
 interface AllowanceTypeUpdateProps {
     id: number;
     closeModal: () => void;
-    fetchApiAllowanceType: () => Promise<void>;
+    fetchApiAllowanceTypeFindAllPagination: () => Promise<void>;
 }
 
 export default function AllowanceTypeUpdate(props: Readonly<AllowanceTypeUpdateProps>) {
@@ -33,7 +33,7 @@ export default function AllowanceTypeUpdate(props: Readonly<AllowanceTypeUpdateP
         } catch (error) {
             console.error(error);
         } finally {
-            await props.fetchApiAllowanceType();
+            await props.fetchApiAllowanceTypeFindAllPagination();
             setIsLoading(false);
         }
     };

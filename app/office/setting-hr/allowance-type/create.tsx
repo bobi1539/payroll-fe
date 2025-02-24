@@ -8,7 +8,7 @@ import { showSuccessDialog } from "@/app/util/sweet-alert";
 
 interface AllowanceTypeCreateProps {
     closeModal: () => void;
-    fetchApiAllowanceType: () => Promise<void>;
+    fetchApiAllowanceTypeFindAllPagination: () => Promise<void>;
 }
 
 export default function AllowanceTypeCreate(props: Readonly<AllowanceTypeCreateProps>) {
@@ -26,7 +26,7 @@ export default function AllowanceTypeCreate(props: Readonly<AllowanceTypeCreateP
         } catch (error) {
             console.error(error);
         } finally {
-            await props.fetchApiAllowanceType();
+            await props.fetchApiAllowanceTypeFindAllPagination();
             setIsLoading(false);
         }
     };

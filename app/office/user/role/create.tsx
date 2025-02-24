@@ -8,7 +8,7 @@ import { buildRoleRequest } from "@/app/dto/request/role-request";
 
 interface RoleCreateProps {
     closeModal: () => void;
-    fetchApiRole: () => Promise<void>;
+    fetchApiRoleFindAllPagination: () => Promise<void>;
 }
 
 export default function RoleCreate(props: Readonly<RoleCreateProps>) {
@@ -26,7 +26,7 @@ export default function RoleCreate(props: Readonly<RoleCreateProps>) {
         } catch (error) {
             console.error(error);
         } finally {
-            await props.fetchApiRole();
+            await props.fetchApiRoleFindAllPagination();
             setIsLoading(false);
         }
     };

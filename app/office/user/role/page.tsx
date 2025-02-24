@@ -31,15 +31,15 @@ export default function Role() {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const fetchApiRole = useCallback(async (): Promise<void> => {
+    const fetchApiRoleFindAllPagination = useCallback(async (): Promise<void> => {
         setIsLoading(true);
         apiRoleFindAllPagination(buildSearch(searchValue), paginationDefault(currentPage)).then((response) => setRolePages(response));
         setIsLoading(false);
     }, [currentPage, searchValue]);
 
     useEffect(() => {
-        fetchApiRole();
-    }, [fetchApiRole]);
+        fetchApiRoleFindAllPagination();
+    }, [fetchApiRoleFindAllPagination]);
 
     const handlePageChange = (page: number): void => {
         setCurrentPage(page);
@@ -59,7 +59,7 @@ export default function Role() {
             } catch (error) {
                 console.error(error);
             } finally {
-                await fetchApiRole();
+                await fetchApiRoleFindAllPagination();
             }
         }
     };
@@ -101,8 +101,8 @@ export default function Role() {
                     )}
                 </CustomTable>
                 <FooterTable totalItem={rolePages?.totalItem ?? 0} totalPage={rolePages?.totalPage ?? 0} handlePageChange={handlePageChange} />
-                {isModalCreateOpen && <RoleCreate closeModal={() => setIsModalCreateOpen(false)} fetchApiRole={fetchApiRole} />}
-                {isModalUpdateOpen && <RoleUpdate id={roleIdUpdate} closeModal={() => setIsModalUpdateOpen(false)} fetchApiRole={fetchApiRole} />}
+                {isModalCreateOpen && <RoleCreate closeModal={() => setIsModalCreateOpen(false)} fetchApiRoleFindAllPagination={fetchApiRoleFindAllPagination} />}
+                {isModalUpdateOpen && <RoleUpdate id={roleIdUpdate} closeModal={() => setIsModalUpdateOpen(false)} fetchApiRoleFindAllPagination={fetchApiRoleFindAllPagination} />}
             </section>
         </div>
     );

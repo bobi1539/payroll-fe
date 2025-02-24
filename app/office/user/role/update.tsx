@@ -10,7 +10,7 @@ import { buildRoleRequest } from "@/app/dto/request/role-request";
 interface RoleUpdateProps {
     id: number;
     closeModal: () => void;
-    fetchApiRole: () => Promise<void>;
+    fetchApiRoleFindAllPagination: () => Promise<void>;
 }
 
 export default function RoleUpdate(props: Readonly<RoleUpdateProps>) {
@@ -33,7 +33,7 @@ export default function RoleUpdate(props: Readonly<RoleUpdateProps>) {
         } catch (error) {
             console.error(error);
         } finally {
-            await props.fetchApiRole();
+            await props.fetchApiRoleFindAllPagination();
             setIsLoading(false);
         }
     };

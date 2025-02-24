@@ -31,15 +31,15 @@ export default function AllowanceType() {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const fetchApiAllowanceType = useCallback(async (): Promise<void> => {
+    const fetchApiAllowanceTypeFindAllPagination = useCallback(async (): Promise<void> => {
         setIsLoading(true);
         apiAllowanceTypeFindAllPagination(buildSearch(searchValue), paginationDefault(currentPage)).then((response) => setAllowanceTypePages(response));
         setIsLoading(false);
     }, [currentPage, searchValue]);
 
     useEffect(() => {
-        fetchApiAllowanceType();
-    }, [fetchApiAllowanceType]);
+        fetchApiAllowanceTypeFindAllPagination();
+    }, [fetchApiAllowanceTypeFindAllPagination]);
 
     const handlePageChange = (page: number): void => {
         setCurrentPage(page);
@@ -59,7 +59,7 @@ export default function AllowanceType() {
             } catch (error) {
                 console.error(error);
             } finally {
-                await fetchApiAllowanceType();
+                await fetchApiAllowanceTypeFindAllPagination();
             }
         }
     };
@@ -101,8 +101,8 @@ export default function AllowanceType() {
                     )}
                 </CustomTable>
                 <FooterTable totalItem={allowanceTypePages?.totalItem ?? 0} totalPage={allowanceTypePages?.totalPage ?? 0} handlePageChange={handlePageChange} />
-                {isModalCreateOpen && <AllowanceTypeCreate closeModal={() => setIsModalCreateOpen(false)} fetchApiAllowanceType={fetchApiAllowanceType} />}
-                {isModalUpdateOpen && <AllowanceTypeUpdate id={allowanceTypeIdUpdate} closeModal={() => setIsModalUpdateOpen(false)} fetchApiAllowanceType={fetchApiAllowanceType} />}
+                {isModalCreateOpen && <AllowanceTypeCreate closeModal={() => setIsModalCreateOpen(false)} fetchApiAllowanceTypeFindAllPagination={fetchApiAllowanceTypeFindAllPagination} />}
+                {isModalUpdateOpen && <AllowanceTypeUpdate id={allowanceTypeIdUpdate} closeModal={() => setIsModalUpdateOpen(false)} fetchApiAllowanceTypeFindAllPagination={fetchApiAllowanceTypeFindAllPagination} />}
             </section>
         </div>
     );
