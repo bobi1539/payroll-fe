@@ -1,7 +1,9 @@
 "use client";
 
-import { COOKIE_JWT_TOKEN, HTTP_CODE_UNAUTHORIZED } from "../constant/general";
+import { COOKIE_JWT_TOKEN, HTTP_CODE_UNAUTHORIZED, PAGE_NUMBER, PAGE_SIZE, SEARCH } from "../constant/general";
 import { SESSION_EXPIRED } from "../constant/message";
+import { Pagination } from "../dto/dto/pagination";
+import { Search } from "../dto/dto/search";
 import { getCookie, removeCookieLogin, setCookieLogin } from "../util/cookie";
 import { showErrorDialog } from "../util/sweet-alert";
 import { apiLoginRefreshToken } from "./auth";
@@ -48,7 +50,7 @@ export const makePostRequest = async <T>(url: string, headers: Headers, body: T)
 };
 
 export const makePutRequest = async <T>(id: number, url: string, headers: Headers, body: T): Promise<Response> => {
-    const response = await fetch(url + "/" + id, {
+    const response = await fetch(url + "/id/" + id, {
         method: "PUT",
         headers: headers,
         body: createRequestBody(body),
@@ -74,7 +76,7 @@ export const makePutRequestWithoutId = async <T>(url: string, headers: Headers, 
 };
 
 export const makeDeleteRequest = async (id: number, url: string, headers: Headers): Promise<Response> => {
-    const response = await fetch(url + "/" + id, {
+    const response = await fetch(url + "/id/" + id, {
         method: "DELETE",
         headers: headers,
     });
@@ -107,4 +109,17 @@ export const handleTokenExpired = async (): Promise<void> => {
         removeCookieLogin();
         await showErrorDialog(SESSION_EXPIRED);
     }
+};
+
+export const buildUrlFindAll = (url: string, search: Search, pagination?: Pagination): string => {
+    const urlWithParam = new URL(url);
+    urlWithParam.searchParams.append(SEARCH, search.value);
+
+    if (pagination?.pageNumber) {
+        urlWithParam.searchParams.append(PAGE_NUMBER, pagination.pageNumber.toString());
+    }
+    if (pagination?.pageSize) {
+        urlWithParam.searchParams.append(PAGE_SIZE, pagination.pageSize.toString());
+    }
+    return urlWithParam.toString();
 };

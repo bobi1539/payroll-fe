@@ -28,7 +28,7 @@ export const showErrorDialog = async (text: string): Promise<void> => {
     await Swal.fire({
         text: capitalize(text),
         icon: "error",
-        iconColor: "#15803d",
+        iconColor: "#ef4444",
         confirmButtonColor: "#15803d",
     });
 };
