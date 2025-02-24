@@ -13,6 +13,7 @@ interface RoleCreateProps {
 
 export default function RoleCreate(props: Readonly<RoleCreateProps>) {
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
     const submitCreateRole = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         try {
             setIsLoading(true);

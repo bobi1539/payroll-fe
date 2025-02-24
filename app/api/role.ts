@@ -6,7 +6,7 @@ import { Search } from "../dto/dto/search";
 import { RoleRequest } from "../dto/request/role-request";
 import { PaginationResponse } from "../dto/response/pagination-response";
 import { RoleResponse } from "../dto/response/role-response";
-import { buildUrlFindAll, createHeadersWithSession, handleResponse, makeDeleteRequest, makeGetRequest, makePostRequest } from "./helper";
+import { buildUrlFindAll, createHeadersWithSession, handleResponse, makeDeleteRequest, makeGetRequest, makePostRequest, makePutRequest } from "./helper";
 
 export const apiRoleFindAllPagination = async (search: Search, pagination: Pagination): Promise<PaginationResponse<RoleResponse>> => {
     const headers = await createHeadersWithSession();
@@ -14,9 +14,27 @@ export const apiRoleFindAllPagination = async (search: Search, pagination: Pagin
     return await handleResponse(response);
 };
 
+export const apiRoleFindAll = async (search: Search): Promise<RoleResponse[]> => {
+    const headers = await createHeadersWithSession();
+    const response = await makeGetRequest(buildUrlFindAll(BE_ROLE, search), headers);
+    return await handleResponse(response);
+};
+
+export const apiRoleFindById = async (id: number): Promise<RoleResponse> => {
+    const headers = await createHeadersWithSession();
+    const response = await makeGetRequest(BE_ROLE + "/id/" + id, headers);
+    return await handleResponse(response);
+};
+
 export const apiRoleCreate = async (request: RoleRequest): Promise<RoleResponse> => {
     const headers = await createHeadersWithSession();
     const response = await makePostRequest(BE_ROLE, headers, request);
+    return await handleResponse(response);
+};
+
+export const apiRoleUpdate = async (id: number, request: RoleRequest): Promise<RoleResponse> => {
+    const headers = await createHeadersWithSession();
+    const response = await makePutRequest(id, BE_ROLE, headers, request);
     return await handleResponse(response);
 };
 

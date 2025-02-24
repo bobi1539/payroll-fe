@@ -21,6 +21,7 @@ import DropdownEdit from "@/app/component/dropdown/dropdown-edit";
 import DropdownDelete from "@/app/component/dropdown/dropdown-delete";
 import { getItemNumber } from "@/app/util/helper";
 import RoleCreate from "./create";
+import RoleUpdate from "./update";
 
 export default function Role() {
     const [rolePages, setRolePages] = useState<PaginationResponse<RoleResponse>>();
@@ -47,8 +48,7 @@ export default function Role() {
             };
         };
 
-        const response = await apiRoleFindAllPagination(buildSearch(), buildPagination());
-        setRolePages(response);
+        apiRoleFindAllPagination(buildSearch(), buildPagination()).then((response) => setRolePages(response));
         setIsLoading(false);
     }, [currentPage, searchValue]);
 
@@ -63,7 +63,6 @@ export default function Role() {
     const handleEditRole = (id: number): void => {
         setIsModalUpdateOpen(!isModalUpdateOpen);
         setRoleIdUpdate(id);
-        console.log(roleIdUpdate);
     };
 
     const handleDeleteRole = async (roleId: number): Promise<void> => {
@@ -119,6 +118,7 @@ export default function Role() {
                 </CustomTable>
                 <FooterTable totalItem={rolePages?.totalItem ?? 0} totalPage={rolePages?.totalPage ?? 0} handlePageChange={handlePageChange} />
                 {isModalCreateOpen && <RoleCreate closeModal={() => setIsModalCreateOpen(false)} fetchApiRole={fetchApiRole} />}
+                {isModalUpdateOpen && <RoleUpdate id={roleIdUpdate} closeModal={() => setIsModalUpdateOpen(false)} fetchApiRole={fetchApiRole} />}
             </section>
         </div>
     );
