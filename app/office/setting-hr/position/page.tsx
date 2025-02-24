@@ -50,7 +50,7 @@ export default function Position() {
         setPositionIdUpdate(id);
     };
 
-    const handleDeleteRole = async (id: number): Promise<void> => {
+    const handleDeletePosition = async (id: number): Promise<void> => {
         const result = await showConfirmDialog(SURE_TO_DELETE);
         if (result.isConfirmed) {
             try {
@@ -73,26 +73,26 @@ export default function Position() {
                 <ContentSearch>
                     <InputSearch onChange={(e) => setSearchValue(e.target.value)} />
                     <div className="flex justify-end">
-                        <ButtonIcon onClick={() => setIsModalCreateOpen(!isModalCreateOpen)} type="button" icon="fa-solid fa-plus" text="Tambah Role" className="w-full md:w-auto" />
+                        <ButtonIcon onClick={() => setIsModalCreateOpen(!isModalCreateOpen)} type="button" icon="fa-solid fa-plus" text="Tambah Jabatan" className="w-full md:w-auto" />
                     </div>
                 </ContentSearch>
                 <CustomTable heads={headsTable}>
                     {isLoading ? (
                         <LoadingTable colSpan={headsTable.length} />
                     ) : (
-                        positionPages?.data.map((role, index) => (
-                            <tr key={role.id} className="border-b text-center">
+                        positionPages?.data.map((position, index) => (
+                            <tr key={position.id} className="border-b text-center">
                                 <td scope="row" className="px-2.5 py-2 whitespace-nowrap">
                                     {getItemNumber(currentPage, index)}
                                 </td>
                                 <td scope="row" className="px-2.5 py-2 break-words text-left whitespace-nowrap">
-                                    {role.name}
+                                    {position.name}
                                 </td>
                                 <td scope="row" className="px-2.5 py-2 whitespace-nowrap">
                                     <CustomDropdown>
                                         <>
-                                            <DropdownEdit onClick={() => handleEditPosition(role.id)} />
-                                            <DropdownDelete onClick={() => handleDeleteRole(role.id)} />
+                                            <DropdownEdit onClick={() => handleEditPosition(position.id)} />
+                                            <DropdownDelete onClick={() => handleDeletePosition(position.id)} />
                                         </>
                                     </CustomDropdown>
                                 </td>

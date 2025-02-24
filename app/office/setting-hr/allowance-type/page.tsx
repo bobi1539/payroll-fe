@@ -80,19 +80,19 @@ export default function AllowanceType() {
                     {isLoading ? (
                         <LoadingTable colSpan={headsTable.length} />
                     ) : (
-                        allowanceTypePages?.data.map((role, index) => (
-                            <tr key={role.id} className="border-b text-center">
+                        allowanceTypePages?.data.map((allowanceType, index) => (
+                            <tr key={allowanceType.id} className="border-b text-center">
                                 <td scope="row" className="px-2.5 py-2 whitespace-nowrap">
                                     {getItemNumber(currentPage, index)}
                                 </td>
                                 <td scope="row" className="px-2.5 py-2 break-words text-left whitespace-nowrap">
-                                    {role.name}
+                                    {allowanceType.name}
                                 </td>
                                 <td scope="row" className="px-2.5 py-2 whitespace-nowrap">
                                     <CustomDropdown>
                                         <>
-                                            <DropdownEdit onClick={() => handleEditAllowanceType(role.id)} />
-                                            <DropdownDelete onClick={() => handleDeleteAllowanceType(role.id)} />
+                                            <DropdownEdit onClick={() => handleEditAllowanceType(allowanceType.id)} />
+                                            <DropdownDelete onClick={() => handleDeleteAllowanceType(allowanceType.id)} />
                                         </>
                                     </CustomDropdown>
                                 </td>
