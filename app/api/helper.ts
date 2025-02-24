@@ -113,8 +113,9 @@ export const handleTokenExpired = async (): Promise<void> => {
 
 export const buildUrlFindAll = (url: string, search: Search, pagination?: Pagination): string => {
     const urlWithParam = new URL(url);
-    urlWithParam.searchParams.append(SEARCH, search.value);
-
+    if (search?.value) {
+        urlWithParam.searchParams.append(SEARCH, search.value);
+    }
     if (pagination?.pageNumber) {
         urlWithParam.searchParams.append(PAGE_NUMBER, pagination.pageNumber.toString());
     }

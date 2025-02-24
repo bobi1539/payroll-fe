@@ -21,3 +21,6 @@ export const ICON_DELETE: string = "fa-solid fa-trash-can";
 export const ICON_SAVE: string = "fa-solid fa-floppy-disk";
 export const ICON_MONEY: string = "fa-solid fa-money-bill";
 export const NAME: string = "name";
+export const SALARY_AMOUNT: string = "salary-amount";
+export const TOTAL_YEAR: string = "total-year";
+export const POSITION_ID: string = "position-id";

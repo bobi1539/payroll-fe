@@ -1,5 +1,5 @@
 export interface Search {
-    value: string;
+    value?: string;
 }
 
 export const buildSearch = (value: string): Search => {

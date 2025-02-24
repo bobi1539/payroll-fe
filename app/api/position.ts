@@ -1,3 +1,5 @@
+"use client";
+
 import { BE_POSITION } from "../constant/endpoint-be";
 import { Pagination } from "../dto/dto/pagination";
 import { Search } from "../dto/dto/search";
