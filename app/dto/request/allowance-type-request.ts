@@ -1,10 +1,10 @@
 import { NAME } from "@/app/constant/general";
 
-export interface RoleRequest {
+export interface AllowanceTypeRequest {
     name: string;
 }
 
-export const buildRoleRequest = (formData: FormData): RoleRequest => {
+export const buildAllowanceTypeRequest = (formData: FormData): AllowanceTypeRequest => {
     return {
         name: (formData.get(NAME) as string) ?? "",
     };

@@ -4,8 +4,8 @@ import { apiRoleFindById, apiRoleUpdate } from "@/app/api/role";
 import { RoleResponse } from "@/app/dto/response/role-response";
 import { useEffect, useState } from "react";
 import RoleCreateOrUpdate from "./create-or-update";
-import { buildRoleRequest } from "./helper";
 import { showSuccessDialog } from "@/app/util/sweet-alert";
+import { buildRoleRequest } from "@/app/dto/request/role-request";
 
 interface RoleUpdateProps {
     id: number;
@@ -29,11 +29,11 @@ export default function RoleUpdate(props: Readonly<RoleUpdateProps>) {
             const request = buildRoleRequest(formData);
             await apiRoleUpdate(props.id, request);
             await showSuccessDialog();
-            await props.fetchApiRole();
             props.closeModal();
         } catch (error) {
             console.error(error);
         } finally {
+            await props.fetchApiRole();
             setIsLoading(false);
         }
     };

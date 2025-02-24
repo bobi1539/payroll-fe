@@ -27,7 +27,7 @@ export default function OfficeSidebar(props: Readonly<OfficeSidebarProps>) {
     };
 
     const fetchUserRoleMenu = async (): Promise<void> => {
-        const response :MenuResponse[] = [
+        const response: MenuResponse[] = [
             {
                 id: 1,
                 name: "Dashboard",
@@ -56,6 +56,29 @@ export default function OfficeSidebar(props: Readonly<OfficeSidebarProps>) {
                         route: "/office/user/role",
                         sequence: 2,
                         menuId: 2,
+                    },
+                ],
+            },
+            {
+                id: 3,
+                name: "Pengaturan SDM",
+                route: "/office/setting-hr",
+                icon: "fa-solid fa-tools",
+                sequence: 3,
+                subMenus: [
+                    {
+                        id: 1,
+                        name: "Jabatan",
+                        route: "/office/setting-hr/position",
+                        sequence: 1,
+                        menuId: 3,
+                    },
+                    {
+                        id: 2,
+                        name: "Jenis Tunjangan",
+                        route: "/office/setting-hr/allowance-type",
+                        sequence: 2,
+                        menuId: 3,
                     },
                 ],
             },

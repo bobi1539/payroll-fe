@@ -2,9 +2,9 @@
 
 import { showSuccessDialog } from "@/app/util/sweet-alert";
 import RoleCreateOrUpdate from "./create-or-update";
-import { buildRoleRequest } from "./helper";
 import { apiRoleCreate } from "@/app/api/role";
 import { useState } from "react";
+import { buildRoleRequest } from "@/app/dto/request/role-request";
 
 interface RoleCreateProps {
     closeModal: () => void;
@@ -22,11 +22,11 @@ export default function RoleCreate(props: Readonly<RoleCreateProps>) {
             const request = buildRoleRequest(formData);
             await apiRoleCreate(request);
             await showSuccessDialog();
-            await props.fetchApiRole();
             props.closeModal();
         } catch (error) {
             console.error(error);
         } finally {
+            await props.fetchApiRole();
             setIsLoading(false);
         }
     };
