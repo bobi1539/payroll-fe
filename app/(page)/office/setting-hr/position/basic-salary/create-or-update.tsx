@@ -5,7 +5,7 @@ import ButtonSave from "@/app/component/button/button-save";
 import InputHidden from "@/app/component/input/input-hidden";
 import InputLabel from "@/app/component/input/input-label";
 import Modal from "@/app/component/modal/modal";
-import { POSITION_ID, SALARY_AMOUNT, TOTAL_YEAR } from "@/app/constant/general";
+import { INPUT_POSITION_ID, INPUT_SALARY_AMOUNT, INPUT_TOTAL_YEAR } from "@/app/constant/general";
 import { BasicSalaryResponse } from "@/app/dto/response/basic-salary-response";
 import { PositionResponse } from "@/app/dto/response/position-response";
 import { formatNumber, removeNonDigit } from "@/app/util/helper";
@@ -37,9 +37,9 @@ export default function BasicSalaryCreateOrUpdate(props: Readonly<BasicSalaryCre
         <Modal title={`${props.title} ${props.position?.name}`} closeModal={props.closeModal} className="max-w-lg">
             <form onSubmit={props.submit}>
                 <div className="mb-4 flex flex-col gap-4">
-                    <InputHidden value={positionId} onChange={(e) => setPositionId(Number(e.target.value))} name={POSITION_ID} />
-                    <InputLabel value={formatNumber(totalYear)} onChange={(e) => setTotalYear(removeNonDigit(e))} label="Jumlah Tahun" name={TOTAL_YEAR} type="text" placeHolder="Masukkan jumlah tahun" isRequired={true} />
-                    <InputLabel value={formatNumber(salaryAmount)} onChange={(e) => setSalaryAmount(removeNonDigit(e))} label="Jumlah Gaji Pokok" name={SALARY_AMOUNT} type="text" placeHolder="Masukkan jumlah gaji pokok" isRequired={true} />
+                    <InputHidden value={positionId} onChange={(e) => setPositionId(Number(e.target.value))} name={INPUT_POSITION_ID} />
+                    <InputLabel value={formatNumber(totalYear)} onChange={(e) => setTotalYear(removeNonDigit(e))} label="Jumlah Tahun" name={INPUT_TOTAL_YEAR} type="text" placeHolder="Masukkan jumlah tahun" isRequired={true} />
+                    <InputLabel value={formatNumber(salaryAmount)} onChange={(e) => setSalaryAmount(removeNonDigit(e))} label="Jumlah Gaji Pokok" name={INPUT_SALARY_AMOUNT} type="text" placeHolder="Masukkan jumlah gaji pokok" isRequired={true} />
                 </div>
                 <div className="flex justify-end">{props.isLoading ? <ButtonLoadingSave /> : <ButtonSave />}</div>
             </form>

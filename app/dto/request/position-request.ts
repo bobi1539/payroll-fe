@@ -1,4 +1,4 @@
-import { NAME } from "@/app/constant/general";
+import { INPUT_NAME } from "@/app/constant/general";
 
 export interface PositionRequest {
     name: string;
@@ -6,6 +6,6 @@ export interface PositionRequest {
 
 export const buildPositionRequest = (formData: FormData): PositionRequest => {
     return {
-        name: (formData.get(NAME) as string) ?? "",
+        name: (formData.get(INPUT_NAME) as string) ?? "",
     };
 };

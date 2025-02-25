@@ -4,7 +4,7 @@ import ButtonLoadingSave from "@/app/component/button/button-loading-save";
 import ButtonSave from "@/app/component/button/button-save";
 import InputLabel from "@/app/component/input/input-label";
 import Modal from "@/app/component/modal/modal";
-import { NAME } from "@/app/constant/general";
+import { INPUT_NAME } from "@/app/constant/general";
 import { RoleResponse } from "@/app/dto/response/role-response";
 import { useEffect, useState } from "react";
 
@@ -29,7 +29,7 @@ export default function RoleCreateOrUpdate(props: Readonly<RoleCreateOrUpdatePro
         <Modal title={props.title} closeModal={props.closeModal} className="max-w-lg">
             <form onSubmit={props.submit}>
                 <div className="my-4">
-                    <InputLabel value={name} onChange={(e) => setName(e.target.value)} label="Nama Role" name={NAME} type="text" placeHolder="Masukkan nama role" isRequired={true} />
+                    <InputLabel value={name} onChange={(e) => setName(e.target.value)} label="Nama Role" name={INPUT_NAME} type="text" placeHolder="Masukkan nama role" isRequired={true} />
                 </div>
                 <div className="flex justify-end">{props.isLoading ? <ButtonLoadingSave /> : <ButtonSave />}</div>
             </form>
