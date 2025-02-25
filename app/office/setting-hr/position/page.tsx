@@ -23,8 +23,6 @@ import PositionCreate from "./create";
 import PositionUpdate from "./update";
 import CustomDropdownItem from "@/app/component/dropdown/custom-dropdown-item";
 import { ICON_MONEY, POSITION_ID_SEARCH_PARAM, TEXT_GRAY_700, TEXT_SALARY } from "@/app/constant/general";
-import { apiBasicSalaryFindAll } from "@/app/api/basic-salary";
-import { buildBasicSalarySearch } from "@/app/dto/search/basic-salary-search";
 import { useRouter } from "next/navigation";
 import { FE_BASIC_SALARY } from "@/app/constant/endpoint-fe";
 
@@ -53,8 +51,6 @@ export default function Position() {
     };
 
     const handlePositionBasicSalary = (id: number): void => {
-        console.log(id);
-        apiBasicSalaryFindAll(buildBasicSalarySearch(id)).then((response) => console.log("basic salary : ", response));
         router.push(getUrlPositionBasicSalary(id));
     };
 
