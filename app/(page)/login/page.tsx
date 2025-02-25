@@ -2,15 +2,15 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import InputLabel from "../component/input/input-label";
-import ButtonLoading from "../component/button/button-loading";
-import ButtonIcon from "../component/button/button-icon";
-import { LoginRequest } from "../dto/request/login-request";
-import { apiLogin } from "../api/auth";
+import InputLabel from "@/app/component/input/input-label";
+import ButtonLoading from "@/app/component/button/button-loading";
+import ButtonIcon from "@/app/component/button/button-icon";
+import { LoginRequest } from "@/app/dto/request/login-request";
+import { apiLogin } from "@/app/api/auth";
 import { redirect, useRouter } from "next/navigation";
-import { FE_DASHBOARD } from "../constant/endpoint-fe";
-import { getCookie, setCookieLogin } from "../util/cookie";
-import { COOKIE_JWT_TOKEN } from "../constant/general";
+import { FE_DASHBOARD } from "@/app/constant/endpoint-fe";
+import { getCookie, setCookieLogin } from "@/app/util/cookie";
+import { COOKIE_JWT_TOKEN } from "@/app/constant/general";
 
 const USERNAME: string = "username";
 const PASSWORD: string = "password";

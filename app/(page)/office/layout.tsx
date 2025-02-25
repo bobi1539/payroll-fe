@@ -2,12 +2,12 @@
 
 import { Suspense, useEffect, useState } from "react";
 import LoadingOffice from "./loading";
-import OfficeSidebar from "../component/sidebar/office-sidebar";
-import OfficeTopbar from "../component/topbar/office-topbar";
-import { getCookie } from "../util/cookie";
-import { COOKIE_JWT_TOKEN } from "../constant/general";
+import OfficeSidebar from "@/app/component/sidebar/office-sidebar";
+import OfficeTopbar from "@/app/component/topbar/office-topbar";
+import { getCookie } from "@/app/util/cookie";
+import { COOKIE_JWT_TOKEN } from "@/app/constant/general";
 import { redirect } from "next/navigation";
-import { FE_LOGIN } from "../constant/endpoint-fe";
+import { FE_LOGIN } from "@/app/constant/endpoint-fe";
 
 interface OfficeLayoutProps {
     children: React.ReactNode;

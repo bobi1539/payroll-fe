@@ -1,4 +1,4 @@
-import Spinner from "../component/spinner/spinner";
+import Spinner from "@/app/component/spinner/spinner";
 
 export default function LoadingOffice() {
     return (
