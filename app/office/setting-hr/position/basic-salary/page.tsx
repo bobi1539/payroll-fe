@@ -20,10 +20,12 @@ import { BasicSalaryResponse } from "@/app/dto/response/basic-salary-response";
 import { PaginationResponse } from "@/app/dto/response/pagination-response";
 import { PositionResponse } from "@/app/dto/response/position-response";
 import { buildBasicSalarySearch } from "@/app/dto/search/basic-salary-search";
-import { getItemNumber } from "@/app/util/helper";
+import { formatNumber, getItemNumber } from "@/app/util/helper";
 import { showConfirmDialog, showSuccessDialog } from "@/app/util/sweet-alert";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import BasicSalaryCreate from "./create";
+import BasicSalaryUpdate from "./update";
 
 export default function BasicSalary() {
     const searchParams = useSearchParams();
@@ -99,7 +101,7 @@ export default function BasicSalary() {
                                     {basicSalary.totalYear}
                                 </td>
                                 <td scope="row" className="px-2.5 py-2 break-words text-right whitespace-nowrap">
-                                    {basicSalary.salaryAmount}
+                                    {formatNumber(basicSalary.salaryAmount)}
                                 </td>
                                 <td scope="row" className="px-2.5 py-2 whitespace-nowrap">
                                     <CustomDropdown>
@@ -114,6 +116,8 @@ export default function BasicSalary() {
                     )}
                 </CustomTable>
                 <FooterTable totalItem={basicSalaryPages?.totalItem ?? 0} totalPage={basicSalaryPages?.totalPage ?? 0} handlePageChange={handlePageChange} />
+                {isModalCreateOpen && <BasicSalaryCreate closeModal={() => setIsModalCreateOpen(false)} fetchApiBasicSalaryFindAllPagination={fetchApiBasicSalaryFindAllPagination} position={position} />}
+                {isModalUpdateOpen && <BasicSalaryUpdate id={basicSalaryIdUpdate} closeModal={() => setIsModalUpdateOpen(false)} fetchApiBasicSalaryFindAllPagination={fetchApiBasicSalaryFindAllPagination} position={position} />}
             </section>
         </div>
     );

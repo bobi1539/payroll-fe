@@ -8,3 +8,15 @@ export const capitalize = (text: string): string => {
 export const getItemNumber = (currentPage: number, index: number): number => {
     return (currentPage - 1) * DEFAULT_PAGE_SIZE + index + 1;
 };
+
+export const formatNumber = (value: number): string => {
+    return new Intl.NumberFormat("id-ID").format(value);
+};
+
+export const removeNonDigit = (e: React.ChangeEvent<HTMLInputElement>): number => {
+    return Number(e.target.value.replace(/\D/g, ""));
+};
+
+export const removeDot = (value: string): string => {
+    return value.replaceAll(".", "");
+};
