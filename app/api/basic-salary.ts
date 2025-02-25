@@ -1,6 +1,7 @@
 "use client";
 
 import { BE_BASIC_SALARY } from "../constant/endpoint-be";
+import { POSITION_ID_PARAM } from "../constant/general";
 import { Pagination } from "../dto/dto/pagination";
 import { BasicSalaryRequest } from "../dto/request/basic-salary-request";
 import { BasicSalaryResponse } from "../dto/response/basic-salary-response";
@@ -49,6 +50,6 @@ export const apiBasicSalaryDelete = async (id: number): Promise<BasicSalaryRespo
 
 const buildBasicSalaryUrlFindAll = (url: string, search: BasicSalarySearch, pagination?: Pagination): string => {
     const newUrl = new URL(buildUrlFindAll(url, search, pagination));
-    newUrl.searchParams.append("positionId", search.positionId.toString());
+    newUrl.searchParams.append(POSITION_ID_PARAM, search.positionId.toString());
     return newUrl.toString();
 };
