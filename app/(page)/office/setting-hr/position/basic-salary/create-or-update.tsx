@@ -38,7 +38,7 @@ export default function BasicSalaryCreateOrUpdate(props: Readonly<BasicSalaryCre
             <form onSubmit={props.submit}>
                 <div className="mb-4 flex flex-col gap-4">
                     <InputHidden value={positionId} onChange={(e) => setPositionId(Number(e.target.value))} name={INPUT_POSITION_ID} />
-                    <InputLabel value={formatNumber(totalYear)} onChange={(e) => setTotalYear(removeNonDigit(e))} label="Jumlah Tahun" name={INPUT_TOTAL_YEAR} type="text" placeHolder="Masukkan jumlah tahun" isRequired={true} />
+                    <InputLabel value={formatNumber(totalYear)} onChange={(e) => setTotalYear(removeNonDigit(e))} label="Jumlah Tahun Kerja" name={INPUT_TOTAL_YEAR} type="text" placeHolder="Masukkan jumlah tahun kerja" isRequired={true} />
                     <InputLabel value={formatNumber(salaryAmount)} onChange={(e) => setSalaryAmount(removeNonDigit(e))} label="Jumlah Gaji Pokok" name={INPUT_SALARY_AMOUNT} type="text" placeHolder="Masukkan jumlah gaji pokok" isRequired={true} />
                 </div>
                 <div className="flex justify-end">{props.isLoading ? <ButtonLoadingSave /> : <ButtonSave />}</div>

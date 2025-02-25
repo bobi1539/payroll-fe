@@ -1,6 +1,6 @@
 "use client";
 
-import { apiBasicSalaryDelete, apiBasicSalaryFindAllPagination } from "@/app/api/basic-salary";
+import { apiAllowanceDelete, apiAllowanceFindAllPagination } from "@/app/api/allowance";
 import { apiPositionFindById } from "@/app/api/position";
 import ButtonBackFull from "@/app/component/button/button-back-full";
 import ButtonIcon from "@/app/component/button/button-icon";
@@ -16,98 +16,96 @@ import { FE_POSITION } from "@/app/constant/endpoint-fe";
 import { POSITION_ID_PARAM } from "@/app/constant/general";
 import { SURE_TO_DELETE } from "@/app/constant/message";
 import { paginationDefault } from "@/app/dto/dto/pagination";
-import { BasicSalaryResponse } from "@/app/dto/response/basic-salary-response";
+import { AllowanceResponse } from "@/app/dto/response/allowance-response";
 import { PaginationResponse } from "@/app/dto/response/pagination-response";
 import { PositionResponse } from "@/app/dto/response/position-response";
-import { buildBasicSalarySearch } from "@/app/dto/search/basic-salary-search";
+import { buildAllowanceSearch } from "@/app/dto/search/allowance-search";
 import { formatNumber, getItemNumber } from "@/app/util/helper";
 import { showConfirmDialog, showSuccessDialog } from "@/app/util/sweet-alert";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import BasicSalaryCreate from "./create";
-import BasicSalaryUpdate from "./update";
 
-export default function BasicSalary() {
+export default function Allowance() {
     const searchParams = useSearchParams();
     const positionId = Number(searchParams.get(POSITION_ID_PARAM));
 
-    const [basicSalaryPages, setBasicSalaryPages] = useState<PaginationResponse<BasicSalaryResponse>>();
+    const [allowancePages, setAllowancePages] = useState<PaginationResponse<AllowanceResponse>>();
     const [isModalCreateOpen, setIsModalCreateOpen] = useState<boolean>(false);
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState<boolean>(false);
-    const [basicSalaryIdUpdate, setBasicSalaryIdUpdate] = useState<number>(0);
+    const [allowanceIdUpdate, setAllowanceIdUpdate] = useState<number>(0);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [position, setPosition] = useState<PositionResponse>();
 
-    const fetchApiBasicSalaryFindAllPagination = useCallback(async (): Promise<void> => {
+    const fetchApiAllowanceFindAllPagination = useCallback(async (): Promise<void> => {
         setIsLoading(true);
         apiPositionFindById(positionId).then((response) => setPosition(response));
-        apiBasicSalaryFindAllPagination(buildBasicSalarySearch(positionId), paginationDefault(currentPage)).then((response) => setBasicSalaryPages(response));
+        apiAllowanceFindAllPagination(buildAllowanceSearch(positionId), paginationDefault(currentPage)).then((response) => setAllowancePages(response));
         setIsLoading(false);
     }, [currentPage, positionId]);
 
     useEffect(() => {
-        fetchApiBasicSalaryFindAllPagination();
-    }, [fetchApiBasicSalaryFindAllPagination]);
+        fetchApiAllowanceFindAllPagination();
+    }, [fetchApiAllowanceFindAllPagination]);
 
     const handlePageChange = (page: number): void => {
         setCurrentPage(page);
     };
 
-    const handleEditBasicSalary = (id: number): void => {
+    const handleEditAllowance = (id: number): void => {
         setIsModalUpdateOpen(!isModalUpdateOpen);
-        setBasicSalaryIdUpdate(id);
-        console.log(basicSalaryIdUpdate);
+        setAllowanceIdUpdate(id);
+        console.log(allowanceIdUpdate);
     };
 
-    const handleDeleteBasicSalary = async (id: number): Promise<void> => {
+    const handleDeleteAllowance = async (id: number): Promise<void> => {
         const result = await showConfirmDialog(SURE_TO_DELETE);
         if (result.isConfirmed) {
             try {
-                await apiBasicSalaryDelete(id);
+                await apiAllowanceDelete(id);
                 await showSuccessDialog();
             } catch (error) {
                 console.error(error);
             } finally {
-                await fetchApiBasicSalaryFindAllPagination();
+                await fetchApiAllowanceFindAllPagination();
             }
         }
     };
 
-    const headsTable = ["no", "jumlah tahun kerja", "gaji pokok", "aksi"];
+    const headsTable = ["no", "jenis tunjangan", "jumlah tunjangan", "aksi"];
 
     return (
         <div>
-            <ContentTitle title={`Gaji Pokok ${position?.name}`} />
+            <ContentTitle title={`Tunjangan Untuk ${position?.name}`} />
             <section className="bg-white relative shadow-md sm:rounded-lg overflow-hidden pb-5">
                 <ContentSearch>
                     <div className="flex justify-start">
                         <ButtonBackFull href={FE_POSITION} />
                     </div>
                     <div className="flex justify-end">
-                        <ButtonIcon onClick={() => setIsModalCreateOpen(!isModalCreateOpen)} type="button" icon="fa-solid fa-plus" text="Tambah Gaji Pokok" className="w-full md:w-auto" />
+                        <ButtonIcon onClick={() => setIsModalCreateOpen(!isModalCreateOpen)} type="button" icon="fa-solid fa-plus" text="Tambah Tunjangan" className="w-full md:w-auto" />
                     </div>
                 </ContentSearch>
                 <CustomTable heads={headsTable}>
                     {isLoading ? (
                         <LoadingTable colSpan={headsTable.length} />
                     ) : (
-                        basicSalaryPages?.data.map((basicSalary, index) => (
-                            <tr key={basicSalary.id} className="border-b text-center">
+                        allowancePages?.data.map((allowance, index) => (
+                            <tr key={allowance.id} className="border-b text-center">
                                 <td scope="row" className="px-2.5 py-2 whitespace-nowrap">
                                     {getItemNumber(currentPage, index)}
                                 </td>
-                                <td scope="row" className="px-2.5 py-2 break-words text-center whitespace-nowrap">
-                                    {formatNumber(basicSalary.totalYear)}
+                                <td scope="row" className="px-2.5 py-2 break-words text-left whitespace-nowrap capitalize">
+                                    {allowance.allowanceType.name}
                                 </td>
                                 <td scope="row" className="px-2.5 py-2 break-words text-right whitespace-nowrap">
-                                    {formatNumber(basicSalary.salaryAmount)}
+                                    {formatNumber(allowance.allowanceAmount)}
                                 </td>
                                 <td scope="row" className="px-2.5 py-2 whitespace-nowrap">
                                     <CustomDropdown>
                                         <>
-                                            <DropdownEdit onClick={() => handleEditBasicSalary(basicSalary.id)} />
-                                            <DropdownDelete onClick={() => handleDeleteBasicSalary(basicSalary.id)} />
+                                            <DropdownEdit onClick={() => handleEditAllowance(allowance.id)} />
+                                            <DropdownDelete onClick={() => handleDeleteAllowance(allowance.id)} />
                                         </>
                                     </CustomDropdown>
                                 </td>
@@ -115,9 +113,7 @@ export default function BasicSalary() {
                         ))
                     )}
                 </CustomTable>
-                <FooterTable totalItem={basicSalaryPages?.totalItem ?? 0} totalPage={basicSalaryPages?.totalPage ?? 0} handlePageChange={handlePageChange} />
-                {isModalCreateOpen && <BasicSalaryCreate closeModal={() => setIsModalCreateOpen(false)} fetchApiBasicSalaryFindAllPagination={fetchApiBasicSalaryFindAllPagination} position={position} />}
-                {isModalUpdateOpen && <BasicSalaryUpdate id={basicSalaryIdUpdate} closeModal={() => setIsModalUpdateOpen(false)} fetchApiBasicSalaryFindAllPagination={fetchApiBasicSalaryFindAllPagination} position={position} />}
+                <FooterTable totalItem={allowancePages?.totalItem ?? 0} totalPage={allowancePages?.totalPage ?? 0} handlePageChange={handlePageChange} />
             </section>
         </div>
     );

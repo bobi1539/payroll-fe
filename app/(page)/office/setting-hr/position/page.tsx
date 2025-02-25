@@ -22,9 +22,9 @@ import { useCallback, useEffect, useState } from "react";
 import PositionCreate from "./create";
 import PositionUpdate from "./update";
 import CustomDropdownItem from "@/app/component/dropdown/custom-dropdown-item";
-import { ICON_MONEY, POSITION_ID_SEARCH_PARAM, TEXT_GRAY_700, TEXT_SALARY } from "@/app/constant/general";
+import { ICON_MONEY, ICON_CREDIT_CARD, POSITION_ID_SEARCH_PARAM, TEXT_ALLOWANCE, TEXT_GRAY_700, TEXT_SALARY } from "@/app/constant/general";
 import { useRouter } from "next/navigation";
-import { FE_BASIC_SALARY } from "@/app/constant/endpoint-fe";
+import { FE_ALLOWANCE, FE_BASIC_SALARY } from "@/app/constant/endpoint-fe";
 
 export default function Position() {
     const [positionPages, setPositionPages] = useState<PaginationResponse<PositionResponse>>();
@@ -56,6 +56,14 @@ export default function Position() {
 
     const getUrlPositionBasicSalary = (id: number): string => {
         return FE_BASIC_SALARY + POSITION_ID_SEARCH_PARAM + id;
+    };
+
+    const handlePositionAllowance = (id: number): void => {
+        router.push(getUrlPositionAllowance(id));
+    };
+
+    const getUrlPositionAllowance = (id: number): string => {
+        return FE_ALLOWANCE + POSITION_ID_SEARCH_PARAM + id;
     };
 
     const handleEditPosition = (id: number): void => {
@@ -105,6 +113,7 @@ export default function Position() {
                                     <CustomDropdown>
                                         <>
                                             <CustomDropdownItem onClick={() => handlePositionBasicSalary(position.id)} className={TEXT_GRAY_700} icon={ICON_MONEY} text={TEXT_SALARY} />
+                                            <CustomDropdownItem onClick={() => handlePositionAllowance(position.id)} className={TEXT_GRAY_700} icon={ICON_CREDIT_CARD} text={TEXT_ALLOWANCE} />
                                             <DropdownEdit onClick={() => handleEditPosition(position.id)} />
                                             <DropdownDelete onClick={() => handleDeletePosition(position.id)} />
                                         </>

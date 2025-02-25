@@ -85,7 +85,7 @@ export default function AllowanceType() {
                                 <td scope="row" className="px-2.5 py-2 whitespace-nowrap">
                                     {getItemNumber(currentPage, index)}
                                 </td>
-                                <td scope="row" className="px-2.5 py-2 break-words text-left whitespace-nowrap">
+                                <td scope="row" className="px-2.5 py-2 break-words text-left whitespace-nowrap capitalize">
                                     {allowanceType.name}
                                 </td>
                                 <td scope="row" className="px-2.5 py-2 whitespace-nowrap">
