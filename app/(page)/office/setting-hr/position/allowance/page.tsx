@@ -24,6 +24,7 @@ import { formatNumber, getItemNumber } from "@/app/util/helper";
 import { showConfirmDialog, showSuccessDialog } from "@/app/util/sweet-alert";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import AllowanceCreate from "./create";
 
 export default function Allowance() {
     const searchParams = useSearchParams();
@@ -114,6 +115,7 @@ export default function Allowance() {
                     )}
                 </CustomTable>
                 <FooterTable totalItem={allowancePages?.totalItem ?? 0} totalPage={allowancePages?.totalPage ?? 0} handlePageChange={handlePageChange} />
+                {isModalCreateOpen && <AllowanceCreate closeModal={() => setIsModalCreateOpen(false)} fetchApiAllowanceFindAllPagination={fetchApiAllowanceFindAllPagination} position={position} />}
             </section>
         </div>
     );
