@@ -25,6 +25,7 @@ import { showConfirmDialog, showSuccessDialog } from "@/app/util/sweet-alert";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import AllowanceCreate from "./create";
+import AllowanceUpdate from "./update";
 
 export default function Allowance() {
     const searchParams = useSearchParams();
@@ -56,7 +57,6 @@ export default function Allowance() {
     const handleEditAllowance = (id: number): void => {
         setIsModalUpdateOpen(!isModalUpdateOpen);
         setAllowanceIdUpdate(id);
-        console.log(allowanceIdUpdate);
     };
 
     const handleDeleteAllowance = async (id: number): Promise<void> => {
@@ -116,6 +116,7 @@ export default function Allowance() {
                 </CustomTable>
                 <FooterTable totalItem={allowancePages?.totalItem ?? 0} totalPage={allowancePages?.totalPage ?? 0} handlePageChange={handlePageChange} />
                 {isModalCreateOpen && <AllowanceCreate closeModal={() => setIsModalCreateOpen(false)} fetchApiAllowanceFindAllPagination={fetchApiAllowanceFindAllPagination} position={position} />}
+                {isModalUpdateOpen && <AllowanceUpdate closeModal={() => setIsModalUpdateOpen(false)} fetchApiAllowanceFindAllPagination={fetchApiAllowanceFindAllPagination} position={position} id={allowanceIdUpdate} />}
             </section>
         </div>
     );

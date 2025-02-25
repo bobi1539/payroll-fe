@@ -23,7 +23,7 @@ export default function BasicSalaryUpdate(props: Readonly<BasicSalaryUpdateProps
         apiBasicSalaryFindById(props.id).then((response) => setBasicSalary(response));
     }, [props.id]);
 
-    const submitUpdatePosition = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    const submitUpdateBasicSalary = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
         try {
             setIsLoading(true);
             e.preventDefault();
@@ -40,5 +40,5 @@ export default function BasicSalaryUpdate(props: Readonly<BasicSalaryUpdateProps
         }
     };
 
-    return <BasicSalaryCreateOrUpdate isLoading={isLoading} submit={submitUpdatePosition} closeModal={props.closeModal} title="Ubah Gaji Pokok" position={props.position} basicSalary={basicSalary} />;
+    return <BasicSalaryCreateOrUpdate isLoading={isLoading} submit={submitUpdateBasicSalary} closeModal={props.closeModal} title="Ubah Gaji Pokok" position={props.position} basicSalary={basicSalary} />;
 }
