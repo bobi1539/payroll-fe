@@ -24,3 +24,5 @@ export const NAME: string = "name";
 export const SALARY_AMOUNT: string = "salary-amount";
 export const TOTAL_YEAR: string = "total-year";
 export const POSITION_ID: string = "position-id";
+export const POSITION_ID_PARAM: string = "positionId";
+export const POSITION_ID_SEARCH_PARAM: string = "?positionId=";
