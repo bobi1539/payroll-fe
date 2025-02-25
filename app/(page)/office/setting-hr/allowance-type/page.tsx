@@ -33,7 +33,7 @@ export default function AllowanceType() {
 
     const fetchApiAllowanceTypeFindAllPagination = useCallback(async (): Promise<void> => {
         setIsLoading(true);
-        apiAllowanceTypeFindAllPagination(buildSearch(searchValue), paginationDefault(currentPage)).then((response) => setAllowanceTypePages(response));
+        await apiAllowanceTypeFindAllPagination(buildSearch(searchValue), paginationDefault(currentPage)).then((response) => setAllowanceTypePages(response));
         setIsLoading(false);
     }, [currentPage, searchValue]);
 

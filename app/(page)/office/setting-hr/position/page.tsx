@@ -38,7 +38,7 @@ export default function Position() {
 
     const fetchApiPositionFindAllPagination = useCallback(async (): Promise<void> => {
         setIsLoading(true);
-        apiPositionFindAllPagination(buildSearch(searchValue), paginationDefault(currentPage)).then((response) => setPositionPages(response));
+        await apiPositionFindAllPagination(buildSearch(searchValue), paginationDefault(currentPage)).then((response) => setPositionPages(response));
         setIsLoading(false);
     }, [currentPage, searchValue]);
 

@@ -33,7 +33,7 @@ export default function Role() {
 
     const fetchApiRoleFindAllPagination = useCallback(async (): Promise<void> => {
         setIsLoading(true);
-        apiRoleFindAllPagination(buildSearch(searchValue), paginationDefault(currentPage)).then((response) => setRolePages(response));
+        await apiRoleFindAllPagination(buildSearch(searchValue), paginationDefault(currentPage)).then((response) => setRolePages(response));
         setIsLoading(false);
     }, [currentPage, searchValue]);
 

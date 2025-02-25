@@ -41,8 +41,8 @@ export default function BasicSalary() {
 
     const fetchApiBasicSalaryFindAllPagination = useCallback(async (): Promise<void> => {
         setIsLoading(true);
-        apiPositionFindById(positionId).then((response) => setPosition(response));
-        apiBasicSalaryFindAllPagination(buildBasicSalarySearch(positionId), paginationDefault(currentPage)).then((response) => setBasicSalaryPages(response));
+        await apiPositionFindById(positionId).then((response) => setPosition(response));
+        await apiBasicSalaryFindAllPagination(buildBasicSalarySearch(positionId), paginationDefault(currentPage)).then((response) => setBasicSalaryPages(response));
         setIsLoading(false);
     }, [currentPage, positionId]);
 

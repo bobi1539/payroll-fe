@@ -41,8 +41,8 @@ export default function Allowance() {
 
     const fetchApiAllowanceFindAllPagination = useCallback(async (): Promise<void> => {
         setIsLoading(true);
-        apiPositionFindById(positionId).then((response) => setPosition(response));
-        apiAllowanceFindAllPagination(buildAllowanceSearch(positionId), paginationDefault(currentPage)).then((response) => setAllowancePages(response));
+        await apiPositionFindById(positionId).then((response) => setPosition(response));
+        await apiAllowanceFindAllPagination(buildAllowanceSearch(positionId), paginationDefault(currentPage)).then((response) => setAllowancePages(response));
         setIsLoading(false);
     }, [currentPage, positionId]);
 
