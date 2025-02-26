@@ -21,6 +21,7 @@ import { getItemNumber } from "@/app/util/helper";
 import { showConfirmDialog, showSuccessDialog } from "@/app/util/sweet-alert";
 import { useCallback, useEffect, useState } from "react";
 import UserCreate from "./create";
+import UserUpdate from "./update";
 
 export default function User() {
     const [userPages, setUserPages] = useState<PaginationResponse<UserResponse>>();
@@ -115,6 +116,7 @@ export default function User() {
                 </CustomTable>
                 <FooterTable totalItem={userPages?.totalItem ?? 0} totalPage={userPages?.totalPage ?? 0} handlePageChange={handlePageChange} />
                 {isModalCreateOpen && <UserCreate closeModal={() => setIsModalCreateOpen(false)} fetchApiUserFindAllPagination={fetchApiUserFindAllPagination} />}
+                {isModalUpdateOpen && <UserUpdate id={userIdUpdate} closeModal={() => setIsModalUpdateOpen(false)} fetchApiUserFindAllPagination={fetchApiUserFindAllPagination} />}
             </section>
         </div>
     );

@@ -12,6 +12,7 @@ import { Option } from "@/app/dto/dto/input-select-option";
 import { buildUserCreateRequest } from "@/app/dto/request/user-create-request";
 import { showSuccessDialog } from "@/app/util/sweet-alert";
 import { useEffect, useState } from "react";
+import { getRoleOptions } from "./helper";
 
 interface UserCreateProps {
     closeModal: () => void;
@@ -23,13 +24,7 @@ export default function UserCreate(props: Readonly<UserCreateProps>) {
     const [roleOptions, setRoleOptions] = useState<Option[]>([]);
 
     useEffect(() => {
-        apiRoleFindAll({ value: "" }).then((response) => {
-            const options: Option[] = response.map((role) => ({
-                value: role.id.toString(),
-                label: role.name,
-            }));
-            setRoleOptions(options);
-        });
+        apiRoleFindAll({ value: "" }).then((response) => setRoleOptions(getRoleOptions(response)));
     }, []);
 
     const submitCreateUser = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
