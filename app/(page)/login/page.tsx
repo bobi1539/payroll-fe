@@ -11,9 +11,11 @@ import { FE_DASHBOARD } from "@/app/constant/endpoint-fe";
 import { getCookie, setCookieLogin } from "@/app/util/cookie";
 import { COOKIE_JWT_TOKEN, INPUT_PASSWORD, INPUT_USERNAME } from "@/app/constant/general";
 import { buildLoginRequest } from "@/app/dto/request/login-request";
+import Spinner from "@/app/component/spinner/spinner";
 
 export default function Login() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLogin, setIsLogin] = useState<boolean>(true);
     const router = useRouter();
 
     useEffect(() => {
@@ -24,6 +26,8 @@ export default function Login() {
         const jwtToken = getCookie(COOKIE_JWT_TOKEN);
         if (jwtToken) {
             redirect(FE_DASHBOARD);
+        } else {
+            setIsLogin(false);
         }
     };
 
@@ -43,6 +47,14 @@ export default function Login() {
             setIsLoading(false);
         }
     };
+
+    if (isLogin) {
+        return (
+            <section className="flex justify-center items-center h-screen">
+                <Spinner />
+            </section>
+        );
+    }
 
     return (
         <section className="bg-gray-200">
