@@ -8,6 +8,7 @@ import { getCookie } from "@/app/util/cookie";
 import { COOKIE_JWT_TOKEN } from "@/app/constant/general";
 import { redirect } from "next/navigation";
 import { FE_LOGIN } from "@/app/constant/endpoint-fe";
+import Spinner from "@/app/component/spinner/spinner";
 
 interface OfficeLayoutProps {
     children: React.ReactNode;
@@ -15,6 +16,7 @@ interface OfficeLayoutProps {
 
 export default function OfficeLayout(props: Readonly<OfficeLayoutProps>) {
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
+    const [isNotLogin, setIsNotLogin] = useState<boolean>(true);
 
     useEffect(() => {
         validateIsLogin();
@@ -24,6 +26,8 @@ export default function OfficeLayout(props: Readonly<OfficeLayoutProps>) {
         const jwtToken = getCookie(COOKIE_JWT_TOKEN);
         if (!jwtToken) {
             redirect(FE_LOGIN);
+        } else {
+            setIsNotLogin(false);
         }
     };
 
@@ -34,6 +38,14 @@ export default function OfficeLayout(props: Readonly<OfficeLayoutProps>) {
     const handleSidebarClose = () => {
         setIsSidebarOpen(false);
     };
+
+    if (isNotLogin) {
+        return (
+            <section className="flex justify-center items-center h-screen">
+                <Spinner />
+            </section>
+        );
+    }
 
     return (
         <div>
