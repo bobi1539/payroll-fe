@@ -20,6 +20,7 @@ import { UserResponse } from "@/app/dto/response/user-response";
 import { getItemNumber } from "@/app/util/helper";
 import { showConfirmDialog, showSuccessDialog } from "@/app/util/sweet-alert";
 import { useCallback, useEffect, useState } from "react";
+import UserCreate from "./create";
 
 export default function User() {
     const [userPages, setUserPages] = useState<PaginationResponse<UserResponse>>();
@@ -79,7 +80,7 @@ export default function User() {
                 <ContentSearch>
                     <InputSearch onChange={(e) => setSearchValue(e.target.value)} />
                     <div className="flex justify-end">
-                        <ButtonIcon onClick={() => setIsModalCreateOpen(!isModalCreateOpen)} type="button" icon="fa-solid fa-plus" text="Tambah Role" className="w-full md:w-auto" />
+                        <ButtonIcon onClick={() => setIsModalCreateOpen(!isModalCreateOpen)} type="button" icon="fa-solid fa-plus" text="Tambah User" className="w-full md:w-auto" />
                     </div>
                 </ContentSearch>
                 <CustomTable heads={tableHeads}>
@@ -113,6 +114,7 @@ export default function User() {
                     )}
                 </CustomTable>
                 <FooterTable totalItem={userPages?.totalItem ?? 0} totalPage={userPages?.totalPage ?? 0} handlePageChange={handlePageChange} />
+                {isModalCreateOpen && <UserCreate closeModal={() => setIsModalCreateOpen(false)} fetchApiUserFindAllPagination={fetchApiUserFindAllPagination} />}
             </section>
         </div>
     );
