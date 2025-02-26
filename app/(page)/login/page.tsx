@@ -5,15 +5,12 @@ import { useEffect, useState } from "react";
 import InputLabel from "@/app/component/input/input-label";
 import ButtonLoading from "@/app/component/button/button-loading";
 import ButtonIcon from "@/app/component/button/button-icon";
-import { LoginRequest } from "@/app/dto/request/login-request";
 import { apiLogin } from "@/app/api/auth";
 import { redirect, useRouter } from "next/navigation";
 import { FE_DASHBOARD } from "@/app/constant/endpoint-fe";
 import { getCookie, setCookieLogin } from "@/app/util/cookie";
-import { COOKIE_JWT_TOKEN } from "@/app/constant/general";
-
-const USERNAME: string = "username";
-const PASSWORD: string = "password";
+import { COOKIE_JWT_TOKEN, INPUT_PASSWORD, INPUT_USERNAME } from "@/app/constant/general";
+import { buildLoginRequest } from "@/app/dto/request/login-request";
 
 export default function Login() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -47,13 +44,6 @@ export default function Login() {
         }
     };
 
-    const buildLoginRequest = (formData: FormData): LoginRequest => {
-        return {
-            username: (formData.get(USERNAME) as string) ?? "",
-            password: (formData.get(PASSWORD) as string) ?? "",
-        };
-    };
-
     return (
         <section className="bg-gray-200">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen pt:mt-0">
@@ -65,8 +55,8 @@ export default function Login() {
                         </div>
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-center text-gray-900 md:text-2xl mb-6">Masuk ke akun anda</h1>
                         <form onSubmit={submitLogin} className="flex flex-col gap-4">
-                            <InputLabel label="Username" name={USERNAME} type="text" isRequired={true} />
-                            <InputLabel label="Password" name={PASSWORD} type="password" placeHolder="••••••••" isRequired={true} />
+                            <InputLabel label="Username" name={INPUT_USERNAME} type="text" isRequired={true} />
+                            <InputLabel label="Password" name={INPUT_PASSWORD} type="password" placeHolder="••••••••" isRequired={true} />
                             {isLoading ? <ButtonLoading text="Proses Login..." className="mt-2" /> : <ButtonIcon type="submit" icon="fa-solid fa-right-to-bracket" text="Masuk" className="mt-2 py-2.5" />}
                         </form>
                     </div>

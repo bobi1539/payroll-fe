@@ -30,3 +30,6 @@ export const INPUT_TOTAL_YEAR: string = "total-year";
 export const INPUT_POSITION_ID: string = "position-id";
 export const INPUT_ALLOWANCE_TYPE_ID: string = "allowance-type-id";
 export const INPUT_ALLOWANCE_AMOUNT: string = "allowance-amount";
+export const INPUT_USERNAME: string = "username";
+export const INPUT_PASSWORD: string = "password";
+export const INPUT_ROLE_ID: string = "role-id";
