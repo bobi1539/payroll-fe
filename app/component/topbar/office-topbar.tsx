@@ -28,6 +28,10 @@ export default function OfficeTopbar(props: Readonly<OfficeTopbarProps>) {
                 id: 1,
                 name: "Super Admin",
                 username: "superadmin",
+                role: {
+                    id: 1,
+                    name: "superadmin",
+                },
             };
             setUser(response);
         };
