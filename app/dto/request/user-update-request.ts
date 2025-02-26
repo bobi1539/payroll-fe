@@ -1,4 +1,5 @@
 import { INPUT_NAME, INPUT_ROLE_ID, INPUT_USERNAME } from "@/app/constant/general";
+import { getNumberFormData, getStringFormData } from "@/app/util/helper";
 
 export interface UserUpdateRequest {
     name: string;
@@ -8,8 +9,8 @@ export interface UserUpdateRequest {
 
 export const buildUserUpdateRequest = (formData: FormData): UserUpdateRequest => {
     return {
-        name: (formData.get(INPUT_NAME) as string) ?? "",
-        username: (formData.get(INPUT_USERNAME) as string) ?? "",
-        roleId: Number(formData.get(INPUT_ROLE_ID)),
+        name: getStringFormData(formData, INPUT_NAME),
+        username: getStringFormData(formData, INPUT_USERNAME),
+        roleId: getNumberFormData(formData, INPUT_ROLE_ID),
     };
 };

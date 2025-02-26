@@ -1,4 +1,5 @@
 import { INPUT_NAME } from "@/app/constant/general";
+import { getStringFormData } from "@/app/util/helper";
 
 export interface AllowanceTypeRequest {
     name: string;
@@ -6,6 +7,6 @@ export interface AllowanceTypeRequest {
 
 export const buildAllowanceTypeRequest = (formData: FormData): AllowanceTypeRequest => {
     return {
-        name: (formData.get(INPUT_NAME) as string) ?? "",
+        name: getStringFormData(formData, INPUT_NAME),
     };
 };

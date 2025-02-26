@@ -1,4 +1,5 @@
 import { INPUT_NAME, INPUT_PASSWORD, INPUT_ROLE_ID, INPUT_USERNAME } from "@/app/constant/general";
+import { getNumberFormData, getStringFormData } from "@/app/util/helper";
 
 export interface UserCreateRequest {
     name: string;
@@ -9,9 +10,9 @@ export interface UserCreateRequest {
 
 export const buildUserCreateRequest = (formData: FormData): UserCreateRequest => {
     return {
-        name: (formData.get(INPUT_NAME) as string) ?? "",
-        username: (formData.get(INPUT_USERNAME) as string) ?? "",
-        password: (formData.get(INPUT_PASSWORD) as string) ?? "",
-        roleId: Number(formData.get(INPUT_ROLE_ID)),
+        name: getStringFormData(formData, INPUT_NAME),
+        username: getStringFormData(formData, INPUT_USERNAME),
+        password: getStringFormData(formData, INPUT_PASSWORD),
+        roleId: getNumberFormData(formData, INPUT_ROLE_ID),
     };
 };

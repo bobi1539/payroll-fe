@@ -1,5 +1,5 @@
 import { INPUT_POSITION_ID, INPUT_SALARY_AMOUNT, INPUT_TOTAL_YEAR } from "@/app/constant/general";
-import { removeDot } from "@/app/util/helper";
+import { getNumberFormData } from "@/app/util/helper";
 
 export interface BasicSalaryRequest {
     salaryAmount: number;
@@ -9,8 +9,8 @@ export interface BasicSalaryRequest {
 
 export const buildBasicSalaryRequest = (formData: FormData): BasicSalaryRequest => {
     return {
-        salaryAmount: Number(removeDot(formData.get(INPUT_SALARY_AMOUNT) as string)),
-        totalYear: Number(removeDot(formData.get(INPUT_TOTAL_YEAR) as string)),
-        positionId: Number(formData.get(INPUT_POSITION_ID)),
+        salaryAmount: getNumberFormData(formData, INPUT_SALARY_AMOUNT),
+        totalYear: getNumberFormData(formData, INPUT_TOTAL_YEAR),
+        positionId: getNumberFormData(formData, INPUT_POSITION_ID),
     };
 };

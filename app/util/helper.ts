@@ -20,3 +20,11 @@ export const removeNonDigit = (e: React.ChangeEvent<HTMLInputElement>): number =
 export const removeDot = (value: string): string => {
     return value.replaceAll(".", "");
 };
+
+export const getStringFormData = (formData: FormData, inputName: string): string => {
+    return (formData.get(inputName) as string) ?? "";
+};
+
+export const getNumberFormData = (formData: FormData, inputName: string): number => {
+    return Number(removeDot(formData.get(inputName) as string));
+};
