@@ -12,6 +12,7 @@ import LoadingTable from "@/app/component/table/loading-table";
 import ContentSearch from "@/app/component/text/content-search";
 import ContentTitle from "@/app/component/text/content-title";
 import { SURE_TO_DELETE } from "@/app/constant/message";
+import { CustomTableHead } from "@/app/dto/dto/custom-table-head";
 import { paginationDefault } from "@/app/dto/dto/pagination";
 import { buildSearch } from "@/app/dto/dto/search";
 import { PaginationResponse } from "@/app/dto/response/pagination-response";
@@ -63,7 +64,13 @@ export default function User() {
         }
     };
 
-    const headsTable = ["no", "nama", "username", "role", "aksi"];
+    const tableHeads: CustomTableHead[] = [
+        { name: "no", className: "text-center" },
+        { name: "nama", className: "text-left pl-2.5" },
+        { name: "username", className: "text-left pl-2.5" },
+        { name: "role", className: "text-left pl-2.5" },
+        { name: "aksi", className: "text-center" },
+    ];
 
     return (
         <div>
@@ -75,9 +82,9 @@ export default function User() {
                         <ButtonIcon onClick={() => setIsModalCreateOpen(!isModalCreateOpen)} type="button" icon="fa-solid fa-plus" text="Tambah Role" className="w-full md:w-auto" />
                     </div>
                 </ContentSearch>
-                <CustomTable heads={headsTable}>
+                <CustomTable heads={tableHeads}>
                     {isLoading ? (
-                        <LoadingTable colSpan={headsTable.length} />
+                        <LoadingTable colSpan={tableHeads.length} />
                     ) : (
                         userPages?.data.map((user, index) => (
                             <tr key={user.id} className="border-b text-center">

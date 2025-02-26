@@ -25,6 +25,7 @@ import CustomDropdownItem from "@/app/component/dropdown/custom-dropdown-item";
 import { ICON_MONEY, ICON_CREDIT_CARD, POSITION_ID_SEARCH_PARAM, TEXT_ALLOWANCE, TEXT_GRAY_700, TEXT_SALARY } from "@/app/constant/general";
 import { useRouter } from "next/navigation";
 import { FE_ALLOWANCE, FE_BASIC_SALARY } from "@/app/constant/endpoint-fe";
+import { CustomTableHead } from "@/app/dto/dto/custom-table-head";
 
 export default function Position() {
     const [positionPages, setPositionPages] = useState<PaginationResponse<PositionResponse>>();
@@ -85,7 +86,11 @@ export default function Position() {
         }
     };
 
-    const headsTable = ["no", "jabatan", "aksi"];
+    const tableHeads: CustomTableHead[] = [
+        { name: "no", className: "text-center" },
+        { name: "jabatan", className: "text-left pl-2.5" },
+        { name: "aksi", className: "text-center" },
+    ];
 
     return (
         <div>
@@ -97,9 +102,9 @@ export default function Position() {
                         <ButtonIcon onClick={() => setIsModalCreateOpen(!isModalCreateOpen)} type="button" icon="fa-solid fa-plus" text="Tambah Jabatan" className="w-full md:w-auto" />
                     </div>
                 </ContentSearch>
-                <CustomTable heads={headsTable}>
+                <CustomTable heads={tableHeads}>
                     {isLoading ? (
-                        <LoadingTable colSpan={headsTable.length} />
+                        <LoadingTable colSpan={tableHeads.length} />
                     ) : (
                         positionPages?.data.map((position, index) => (
                             <tr key={position.id} className="border-b text-center">

@@ -26,6 +26,7 @@ import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import BasicSalaryCreate from "./create";
 import BasicSalaryUpdate from "./update";
+import { CustomTableHead } from "@/app/dto/dto/custom-table-head";
 
 export default function BasicSalary() {
     const searchParams = useSearchParams();
@@ -74,7 +75,12 @@ export default function BasicSalary() {
         }
     };
 
-    const headsTable = ["no", "jumlah tahun kerja", "gaji pokok", "aksi"];
+    const tableHeads: CustomTableHead[] = [
+        { name: "no", className: "text-center" },
+        { name: "jumlah tahun kerja", className: "text-center" },
+        { name: "gaji pokok", className: "text-right" },
+        { name: "aksi", className: "text-center" },
+    ];
 
     return (
         <div>
@@ -88,9 +94,9 @@ export default function BasicSalary() {
                         <ButtonIcon onClick={() => setIsModalCreateOpen(!isModalCreateOpen)} type="button" icon="fa-solid fa-plus" text="Tambah Gaji Pokok" className="w-full md:w-auto" />
                     </div>
                 </ContentSearch>
-                <CustomTable heads={headsTable}>
+                <CustomTable heads={tableHeads}>
                     {isLoading ? (
-                        <LoadingTable colSpan={headsTable.length} />
+                        <LoadingTable colSpan={tableHeads.length} />
                     ) : (
                         basicSalaryPages?.data.map((basicSalary, index) => (
                             <tr key={basicSalary.id} className="border-b text-center">

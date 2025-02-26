@@ -21,6 +21,7 @@ import DropdownDelete from "@/app/component/dropdown/dropdown-delete";
 import { getItemNumber } from "@/app/util/helper";
 import RoleCreate from "./create";
 import RoleUpdate from "./update";
+import { CustomTableHead } from "@/app/dto/dto/custom-table-head";
 
 export default function Role() {
     const [rolePages, setRolePages] = useState<PaginationResponse<RoleResponse>>();
@@ -63,8 +64,11 @@ export default function Role() {
             }
         }
     };
-
-    const headsTable = ["no", "nama role", "aksi"];
+    const tableHeads: CustomTableHead[] = [
+        { name: "no", className: "text-center" },
+        { name: "nama role", className: "text-left pl-2.5" },
+        { name: "aksi", className: "text-center" },
+    ];
 
     return (
         <div>
@@ -76,9 +80,9 @@ export default function Role() {
                         <ButtonIcon onClick={() => setIsModalCreateOpen(!isModalCreateOpen)} type="button" icon="fa-solid fa-plus" text="Tambah Role" className="w-full md:w-auto" />
                     </div>
                 </ContentSearch>
-                <CustomTable heads={headsTable}>
+                <CustomTable heads={tableHeads}>
                     {isLoading ? (
-                        <LoadingTable colSpan={headsTable.length} />
+                        <LoadingTable colSpan={tableHeads.length} />
                     ) : (
                         rolePages?.data.map((role, index) => (
                             <tr key={role.id} className="border-b text-center">

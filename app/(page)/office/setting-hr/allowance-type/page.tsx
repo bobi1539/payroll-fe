@@ -21,6 +21,7 @@ import { showConfirmDialog, showSuccessDialog } from "@/app/util/sweet-alert";
 import { useCallback, useEffect, useState } from "react";
 import AllowanceTypeCreate from "./create";
 import AllowanceTypeUpdate from "./update";
+import { CustomTableHead } from "@/app/dto/dto/custom-table-head";
 
 export default function AllowanceType() {
     const [allowanceTypePages, setAllowanceTypePages] = useState<PaginationResponse<AllowanceTypeResponse>>();
@@ -64,7 +65,11 @@ export default function AllowanceType() {
         }
     };
 
-    const headsTable = ["no", "jenis tunjangan", "aksi"];
+    const tableHeads: CustomTableHead[] = [
+        { name: "no", className: "text-center" },
+        { name: "jenis tunjangan", className: "text-left pl-2.5" },
+        { name: "aksi", className: "text-center" },
+    ];
 
     return (
         <div>
@@ -76,9 +81,9 @@ export default function AllowanceType() {
                         <ButtonIcon onClick={() => setIsModalCreateOpen(!isModalCreateOpen)} type="button" icon="fa-solid fa-plus" text="Tambah Jenis Tunjangan" className="w-full md:w-auto" />
                     </div>
                 </ContentSearch>
-                <CustomTable heads={headsTable}>
+                <CustomTable heads={tableHeads}>
                     {isLoading ? (
-                        <LoadingTable colSpan={headsTable.length} />
+                        <LoadingTable colSpan={tableHeads.length} />
                     ) : (
                         allowanceTypePages?.data.map((allowanceType, index) => (
                             <tr key={allowanceType.id} className="border-b text-center">

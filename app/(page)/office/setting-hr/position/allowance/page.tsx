@@ -26,6 +26,7 @@ import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import AllowanceCreate from "./create";
 import AllowanceUpdate from "./update";
+import { CustomTableHead } from "@/app/dto/dto/custom-table-head";
 
 export default function Allowance() {
     const searchParams = useSearchParams();
@@ -73,7 +74,12 @@ export default function Allowance() {
         }
     };
 
-    const headsTable = ["no", "jenis tunjangan", "jumlah tunjangan", "aksi"];
+    const tableHeads: CustomTableHead[] = [
+        { name: "no", className: "text-center" },
+        { name: "jenis tunjangan", className: "text-left pl-2.5" },
+        { name: "jumlah tunjangan", className: "text-right" },
+        { name: "aksi", className: "text-center" },
+    ];
 
     return (
         <div>
@@ -87,9 +93,9 @@ export default function Allowance() {
                         <ButtonIcon onClick={() => setIsModalCreateOpen(!isModalCreateOpen)} type="button" icon="fa-solid fa-plus" text="Tambah Tunjangan" className="w-full md:w-auto" />
                     </div>
                 </ContentSearch>
-                <CustomTable heads={headsTable}>
+                <CustomTable heads={tableHeads}>
                     {isLoading ? (
-                        <LoadingTable colSpan={headsTable.length} />
+                        <LoadingTable colSpan={tableHeads.length} />
                     ) : (
                         allowancePages?.data.map((allowance, index) => (
                             <tr key={allowance.id} className="border-b text-center">
