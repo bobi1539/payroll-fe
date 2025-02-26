@@ -12,7 +12,7 @@ import FooterTable from "@/app/component/table/footer-table";
 import LoadingTable from "@/app/component/table/loading-table";
 import ContentSearch from "@/app/component/text/content-search";
 import ContentTitle from "@/app/component/text/content-title";
-import { FE_POSITION } from "@/app/constant/endpoint-fe";
+import { FE_NOT_FOUND, FE_POSITION } from "@/app/constant/endpoint-fe";
 import { POSITION_ID_PARAM } from "@/app/constant/general";
 import { SURE_TO_DELETE } from "@/app/constant/message";
 import { paginationDefault } from "@/app/dto/dto/pagination";
@@ -22,7 +22,7 @@ import { PositionResponse } from "@/app/dto/response/position-response";
 import { buildBasicSalarySearch } from "@/app/dto/search/basic-salary-search";
 import { formatNumber, getItemNumber } from "@/app/util/helper";
 import { showConfirmDialog, showSuccessDialog } from "@/app/util/sweet-alert";
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import BasicSalaryCreate from "./create";
 import BasicSalaryUpdate from "./update";
@@ -37,12 +37,13 @@ export default function BasicSalary() {
     const [isModalUpdateOpen, setIsModalUpdateOpen] = useState<boolean>(false);
     const [basicSalaryIdUpdate, setBasicSalaryIdUpdate] = useState<number>(0);
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [position, setPosition] = useState<PositionResponse>();
 
     const fetchApiBasicSalaryFindAllPagination = useCallback(async (): Promise<void> => {
-        setIsLoading(true);
-        await apiPositionFindById(positionId).then((response) => setPosition(response));
+        await apiPositionFindById(positionId)
+            .then((response) => setPosition(response))
+            .catch(() => redirect(FE_NOT_FOUND));
         await apiBasicSalaryFindAllPagination(buildBasicSalarySearch(positionId), paginationDefault(currentPage)).then((response) => setBasicSalaryPages(response));
         setIsLoading(false);
     }, [currentPage, positionId]);
@@ -58,7 +59,6 @@ export default function BasicSalary() {
     const handleEditBasicSalary = (id: number): void => {
         setIsModalUpdateOpen(!isModalUpdateOpen);
         setBasicSalaryIdUpdate(id);
-        console.log(basicSalaryIdUpdate);
     };
 
     const handleDeleteBasicSalary = async (id: number): Promise<void> => {
