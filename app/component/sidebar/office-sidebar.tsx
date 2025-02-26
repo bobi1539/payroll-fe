@@ -80,6 +80,13 @@ export default function OfficeSidebar(props: Readonly<OfficeSidebarProps>) {
                         sequence: 2,
                         menuId: 3,
                     },
+                    {
+                        id: 3,
+                        name: "Karyawan",
+                        route: "/office/setting-hr/employee",
+                        sequence: 3,
+                        menuId: 3,
+                    },
                 ],
             },
         ];

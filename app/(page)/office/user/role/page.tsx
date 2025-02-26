@@ -51,11 +51,11 @@ export default function Role() {
         setRoleIdUpdate(id);
     };
 
-    const handleDeleteRole = async (roleId: number): Promise<void> => {
+    const handleDeleteRole = async (id: number): Promise<void> => {
         const result = await showConfirmDialog(SURE_TO_DELETE);
         if (result.isConfirmed) {
             try {
-                await apiRoleDelete(roleId);
+                await apiRoleDelete(id);
                 await showSuccessDialog();
             } catch (error) {
                 console.error(error);
